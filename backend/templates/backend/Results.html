@@ -1,0 +1,23 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Результаты  раунда {{ subsession.round_number }} из {{ Constants.num_rounds }}
+{% endblock %}
+
+{% block content %}
+    <div>
+        <p>
+        Вы инвестировали {{ Constants.S }}
+        </p>
+        <p>
+        По итогам раунда Вы получили {{ player.exit_price }}
+        </p>
+        <p>
+        Доходность Вашей инвестиции составила {{ratofret}}
+        </p>
+    </div>
+    {% next_button %}
+{% endblock %}
+
+
