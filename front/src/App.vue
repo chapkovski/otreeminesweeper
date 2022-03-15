@@ -1,18 +1,43 @@
 <template>
   <div id="app">
-
-    <minesweeper-game></minesweeper-game>
-    
+    <v-app>
+      <v-container>
+        <v-row>
+          <v-col>
+            <v-card>
+              <v-card-text>
+                <div class="text-center d-flex flex-column">
+                  <game-dialog
+                    v-for="(grid, i) in grids"
+                    :key="i"
+                    v-bind="grid"
+                  ></game-dialog>
+                </div>
+              </v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-app>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'app',
+  name: "app",
   data() {
-    return {}
-  }
-}
+    return {
+      grids: [
+        { rows: 9, columns: 9, bombs: 11 },
+        { rows: 9, columns: 9, bombs: 11 },
+        { rows: 16, columns: 16, bombs: 40 },
+        { rows: 16, columns: 16, bombs: 40 },
+        { rows: 18, columns: 20, bombs: 60 },
+        { rows: 18, columns: 20, bombs: 60 },
+      ],
+    };
+  },
+};
 </script>
 
 <style lang="scss">
@@ -20,13 +45,14 @@ export default {
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   margin: 0;
 }
 
 button {
   text-transform: uppercase;
-  font-size: .7em;
+  font-size: 0.7em;
   background-color: #333;
   color: #efefef;
   border: none;
@@ -35,14 +61,14 @@ button {
 }
 
 #app {
-  display:flex;
-  flex-direction: column;
-  font-family: 'M PLUS Rounded 1c', Arial, sans-serif;
+  font-family: "M PLUS Rounded 1c", Arial, sans-serif;
   color: #333;
 }
 
-#header, #game, #footer {
-  position: absolute;
+#header,
+#game,
+#footer {
+  // position: absolute;
 }
 
 #header {

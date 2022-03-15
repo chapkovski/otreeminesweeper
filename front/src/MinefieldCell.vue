@@ -1,5 +1,5 @@
 <template>
-    <div class="cell" :class="{ revealed: isRevealed }" @click="onCellLeftClicked" @click.right="onCellRightClicked">
+    <div class="gamecell" :class="{ revealed: isRevealed }" @click="onCellLeftClicked" @click.right="onCellRightClicked">
         <div class="content" v-show="isValueVisible">{{ value }}</div>
     </div>
 </template>
@@ -52,7 +52,7 @@ export default {
 </script>
 
 <style lang="scss">
-.cell {
+.gamecell {
     // table-cell causes the cells to be of equal width in the row
     display: table-cell;
     position: relative;
@@ -64,7 +64,7 @@ export default {
 }
 
 // Equal the height to the cell's width
-.cell:before{
+.gamecell:before{
 	content: "";
 	display: block;
 	padding-top: 100%; 	/* initial ratio of 1:1*/

@@ -3,46 +3,12 @@ from os import environ
 SESSION_CONFIGS = [
     dict(
         name='prototype1',
-        display_name="prototype1 - round slider",
+        display_name="prototype 1",
         num_demo_participants=1,
         app_sequence=['backend'],
-        component_number=1
+
     ),
-    dict(
-        name='prototype2',
-        display_name="prototype 2 - button",
-        num_demo_participants=1,
-        app_sequence=['backend'],
-        component_number=2
-    ),
-    dict(
-        name='prototype3',
-        display_name=" prototype3 - Slider",
-        num_demo_participants=1,
-        app_sequence=['backend'],
-        component_number=3
-    ),
-    dict(
-        name='prototype4',
-        display_name="prototype 4 - buttons then  Slider",
-        num_demo_participants=1,
-        app_sequence=['backend'],
-        component_number=2,
-        inner_slider=True,
-    ),
-    dict(
-        name='prototype5',
-        display_name="prototype 5 - combo",
-        num_demo_participants=1,
-        app_sequence=['backend', 'reif_survey_0'],
-        component_number=4,
-    ),
-    dict(
-        name='reif_survey_0',
-        display_name="reif_survey_0",
-        num_demo_participants=1,
-        app_sequence=['reif_survey_0'],
-    ),
+
 
 ]
 

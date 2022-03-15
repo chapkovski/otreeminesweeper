@@ -1,6 +1,6 @@
 <template>
     <div id="minefield" oncontextmenu="return false;">
-        <div class="row" v-for="row in minefield" :key="row.x">
+        <div class="gamerow" v-for="row in minefield" :key="row.x">
             <minesweeper-field-cell v-for="cell in row" :key="cell.y" 
                 :cellData="cell" :bombIcon="bombIcon" :flagIcon="flagIcon"
                 @onCellLeftClicked="onCellLeftClicked" @onCellRightClicked="onCellRightClicked"></minesweeper-field-cell>
@@ -41,8 +41,8 @@ export default {
     margin: 6px auto 18px auto;
 }
 
-.row {
+.gamerow {
     display: table;
-    margin: 0 auto;
+    margin: 0 auto!important;
 }
 </style>

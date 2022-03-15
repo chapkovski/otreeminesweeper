@@ -1,6 +1,6 @@
 <template>
   <div id="game">
-    <form class="options" @submit.prevent="prepareNewGame">
+    <form v-if="false" class="options" @submit.prevent="prepareNewGame">
       Size
       <input
         class="number-input"
@@ -20,7 +20,7 @@
       @onCellRightClicked="onCellFlagged"
     ></minesweeper-field>
     <app-button-switch
-    v-if="false"
+      v-if="false"
       id="mine-mode-switch"
       @onSelected="onModeChanged"
     ></app-button-switch>
@@ -57,6 +57,18 @@ export default {
     loseText: {
       type: String,
       default: "Game over! 💥",
+    },
+    rows: {
+      type: Number,
+      default: 10,
+    },
+    columns: {
+      type: Number,
+      default: 10,
+    },
+    bombs: {
+      type: Number,
+      default: 10,
     },
   },
   data() {
@@ -121,18 +133,18 @@ export default {
       // Save the current field size
       this.size = this.fieldSize;
 
-      const amountOfCells = this.size * this.size;
+      const amountOfCells = this.rows * this.columns;
       // Determine the amount of bombs
-      this.amountOfBombs = Math.round(amountOfCells * 0);
+      this.amountOfBombs = this.bombs;
 
       console.log(
         this.amountOfBombs + " / " + amountOfCells + " cells will be bombs."
       );
 
       // Create empty field
-      for (let x = 0; x < this.size; x++) {
+      for (let x = 0; x < this.rows; x++) {
         this.$set(this.minefield, x, []);
-        for (let y = 0; y < this.size; y++) {
+        for (let y = 0; y < this.columns; y++) {
           // Create a data tile for every coord
           this.$set(this.minefield[x], y, {
             x: x,
@@ -146,14 +158,16 @@ export default {
       }
     },
     placeMines(excludeCoord) {
-      console.log("Creating field (" + this.size + " x " + this.size + ") ...");
+      console.log(
+        "Creating field (" + this.rows + " x " + this.columns + ") ..."
+      );
 
       // Linaer list of all coords
       let coords = [];
 
       // Fill the minefield
-      for (let x = 0; x < this.size; x++) {
-        for (let y = 0; y < this.size; y++) {
+      for (let x = 0; x < this.rows; x++) {
+        for (let y = 0; y < this.columns; y++) {
           if (excludeCoord.x != x || excludeCoord.y != y) {
             // Save the coords in a linear array
             coords.push({ x: x, y: y });
@@ -215,7 +229,7 @@ export default {
         // If it is a bomb
         if (cell.isBomb) {
           // Game over
-          this.setGameOver(); //PHILIPP: this one should be commented out for Kyle
+          // this.setGameOver(); //PHILIPP: this one should be commented out for Kyle
           return;
         }
 
@@ -289,9 +303,9 @@ export default {
           // Check if the cell it within the field's borders
           if (
             adjecentX >= 0 &&
-            adjecentX < this.size &&
+            adjecentX < this.rows &&
             adjecentY >= 0 &&
-            adjecentY < this.size
+            adjecentY < this.columns
           ) {
             // Execute whatever it wants
             closure(this.minefield[adjecentX][adjecentY]);
@@ -312,8 +326,8 @@ export default {
     setGameWon() {
       this.gameOver = true;
       // Reveal all cells
-      for (let x = 0; x < this.size; x++) {
-        for (let y = 0; y < this.size; y++) {
+      for (let x = 0; x < this.rows; x++) {
+        for (let y = 0; y < this.columns; y++) {
           let cell = this.minefield[x][y];
           cell.isRevealed = cell.isBomb ? false : true;
         }

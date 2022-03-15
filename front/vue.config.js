@@ -26,5 +26,5 @@ module.exports = {
     writeToDisk: true, // Write files to disk in dev mode, so Django can serve the assets
   },
 
-  transpileDependencies: ["vuetify"],
+  transpileDependencies: ['vuetify'],
 };
