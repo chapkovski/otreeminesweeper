@@ -2,13 +2,13 @@
   <v-dialog v-model="dialog" >
     <template v-slot:activator="{ on, attrs }">
       <v-btn color="red lighten-2" dark v-bind="attrs" v-on="on" class="my-3">
-        Grid  {{rows}} X {{columns}}. Bombs: {{bombs}}
+       Open grid
       </v-btn>
     </template>
 
     <v-card>
       <v-card-title class="text-h5 grey lighten-2">
-        {{rows}} X {{columns}}. Bombs: {{bombs}}
+        Grid {{id}}
       </v-card-title>
 
       <v-card-text>

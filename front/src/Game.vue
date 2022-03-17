@@ -1,7 +1,7 @@
 <template>
   <div id="game">
-    <h2 class="game-state">Number of clicks used in this grid: {{ clicks }}</h2>
-    <h2 class="game-state">Total number of clicks used: {{ totclicks }}</h2>
+    <h4 class="game-state">Number of clicks used in this grid: {{ clicks }}</h4>
+    <h4 class="game-state">Total number of clicks used: {{ totclicks }}</h4>
     <p>{{ bombStateText }}</p>
     <minesweeper-field
       :minefield="minefield"
@@ -78,7 +78,6 @@ export default {
     ...mapState(["totclicks"]),
     ...mapGetters(["clicks_per_grid"]),
     clicks() {
-      
       return this.clicks_per_grid(this.id);
     },
     bombStateText() {
