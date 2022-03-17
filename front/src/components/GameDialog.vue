@@ -12,7 +12,7 @@
       </v-card-title>
 
       <v-card-text>
-        <minesweeper-game :rows="rows" :columns="columns" :bombs="bombs"></minesweeper-game>
+        <minesweeper-game :rows="rows" :columns="columns" :bombs="bombs" :id="id"></minesweeper-game>
       </v-card-text>
 
       <v-divider></v-divider>
@@ -30,6 +30,7 @@
 <script>
 export default {
    props: {
+    id:Number,
     rows: {
       type: Number,
       default: 10,

@@ -1,41 +1,121 @@
 <template>
   <div id="app">
     <v-app>
-      <v-container>
-        <v-row>
-          <v-col>
-            <v-card>
-              <v-card-text>
-                <div class="text-center d-flex flex-column">
-                  <game-dialog
-                    v-for="(grid, i) in grids"
-                    :key="i"
-                    v-bind="grid"
-                  ></game-dialog>
-                </div>
-              </v-card-text>
-            </v-card>
-          </v-col>
-        </v-row>
-      </v-container>
+      <v-app-bar app> Total number of clicks: {{ totclicks }} </v-app-bar>
+      <v-main>
+        <v-container>
+          <v-row>
+            <v-col>
+              <v-card>
+                <v-card-text>
+                  <v-simple-table>
+                    <template v-slot:default>
+                      <thead>
+                        <tr>
+                          <th class="text-left">
+                            Grid Number
+                          </th>
+                          <th class="text-left">
+                            Low penalty
+                          </th>
+                          <th class="text-left">
+                            High penalty
+                          </th>
+                          <th class="text-left">
+                            Recommended number of clicks
+                          </th>
+                          <th class="text-left"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr v-for="(grid, i) in grids" :key="i">
+                          <td>{{ i + 1 }}</td>
+                          <td>${{ grid.lb }}</td>
+                          <td>${{ grid.ub }}</td>
+                          <td>{{ grid.recommended_clicks }}</td>
+                          <td>
+                            <game-dialog v-bind="grid" :id="i"></game-dialog>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </template>
+                  </v-simple-table>
+                </v-card-text>
+              </v-card>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-main>
     </v-app>
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "app",
   data() {
     return {
       grids: [
-        { rows: 9, columns: 9, bombs: 11 },
-        { rows: 9, columns: 9, bombs: 11 },
-        { rows: 16, columns: 16, bombs: 40 },
-        { rows: 16, columns: 16, bombs: 40 },
-        { rows: 18, columns: 20, bombs: 60 },
-        { rows: 18, columns: 20, bombs: 60 },
+        {
+          rows: 9,
+          columns: 9,
+          bombs: 11,
+          lb: 0.09,
+          ub: 0.12,
+          used_clicks:0,
+          recommended_clicks: 95,
+        },
+        {
+          rows: 9,
+          columns: 9,
+          bombs: 11,
+          lb: 0.09,
+          ub: 0.12,
+          used_clicks:0,
+          recommended_clicks: 95,
+        },
+        {
+          rows: 16,
+          columns: 16,
+          bombs: 40,
+          lb: 0.09,
+          ub: 0.12,
+          used_clicks:0,
+          recommended_clicks: 95,
+        },
+        {
+          rows: 16,
+          columns: 16,
+          bombs: 40,
+          lb: 0.09,
+          ub: 0.12,
+          used_clicks:0,
+          recommended_clicks: 95,
+        },
+        {
+          rows: 18,
+          columns: 20,
+          bombs: 60,
+          lb: 0.09,
+          ub: 0.12,
+          used_clicks:0,
+          recommended_clicks: 95,
+        },
+        {
+          rows: 18,
+          columns: 20,
+          bombs: 60,
+          lb: 0.09,
+          ub: 0.12,
+          used_clicks:0,
+          recommended_clicks: 95,
+        },
       ],
     };
+  },
+  computed: {
+    ...mapState(["totclicks"]),
   },
 };
 </script>

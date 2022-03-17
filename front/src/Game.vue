@@ -1,18 +1,7 @@
 <template>
   <div id="game">
-    <form v-if="false" class="options" @submit.prevent="prepareNewGame">
-      Size
-      <input
-        class="number-input"
-        :min="fieldSizeMin"
-        :max="fieldSizeMax"
-        :placeholder="fieldSizeDefault"
-        v-model.number="fieldSize"
-        type="number"
-      />
-      <button>New game</button>
-    </form>
-    <h2 class="game-state">{{ gameStateText }}</h2>
+    <h2 class="game-state">Number of clicks used in this grid: {{ clicks }}</h2>
+    <h2 class="game-state">Total number of clicks used: {{ totclicks }}</h2>
     <p>{{ bombStateText }}</p>
     <minesweeper-field
       :minefield="minefield"
@@ -28,8 +17,10 @@
 </template>
 
 <script>
+import { mapState, mapMutations, mapGetters } from "vuex";
 export default {
   props: {
+    id: Number,
     bombIcon: {
       type: String,
       default: "💣",
@@ -38,26 +29,7 @@ export default {
       type: String,
       default: "❗",
     },
-    startText: {
-      type: String,
-      default: "Good luck! 🍀",
-    },
-    emptyCellText: {
-      type: String,
-      default: "Nice!",
-    },
-    highProxCellText: {
-      type: String,
-      default: "Close one!",
-    },
-    winText: {
-      type: String,
-      default: "You won! 🎈",
-    },
-    loseText: {
-      type: String,
-      default: "Game over! 💥",
-    },
+
     rows: {
       type: Number,
       default: 10,
@@ -78,6 +50,7 @@ export default {
       fieldSizeMax: 50,
       fieldSize: 10,
       mineModeEnabled: true,
+
       minefield: [
         [
           {
@@ -102,6 +75,12 @@ export default {
     this.prepareNewGame();
   },
   computed: {
+    ...mapState(["totclicks"]),
+    ...mapGetters(["clicks_per_grid"]),
+    clicks() {
+      
+      return this.clicks_per_grid(this.id);
+    },
     bombStateText() {
       return (
         this.amountOfCellsMarked +
@@ -115,6 +94,10 @@ export default {
     },
   },
   methods: {
+    ...mapMutations({
+      increase_clicks: "INCREASE_CLICKS",
+      increase_my_clicks: "INCREASE_INDIVIDUAL_CLICKS",
+    }),
     onModeChanged(isMineMode) {
       console.log("Mode: " + (isMineMode ? "Mine" : "Flag"));
       this.mineModeEnabled = isMineMode;
@@ -126,9 +109,6 @@ export default {
       this.minefield.splice(0);
       this.bombList.splice(0);
       this.amountOfCellsMarked = 0;
-
-      // Change the game state text to wish the player good luck
-      this.gameStateText = this.startText;
 
       // Save the current field size
       this.size = this.fieldSize;
@@ -204,6 +184,8 @@ export default {
       }
     },
     onCellClicked(coord) {
+      this.increase_clicks();
+      this.increase_my_clicks(this.id);
       if (this.mineModeEnabled) {
         this.onCellMined(coord);
       } else {
@@ -235,7 +217,6 @@ export default {
 
         // If it is an empty cell, clear all adjecent cells
         if (cell.proximityCount == 0) {
-          this.gameStateText = this.emptyCellText;
           const vm = this;
           const closure = function(adjecentCell) {
             if (!adjecentCell.isRevealed) {
@@ -253,11 +234,6 @@ export default {
             }
           };
           vm.doForAdjecentCells(cell, closure);
-        }
-
-        // Compliment on close call
-        if (cell.proximityCount > 2) {
-          this.gameStateText = this.highProxCellText;
         }
       }
     },
@@ -320,8 +296,6 @@ export default {
       for (let b = 0; b < this.bombList.length; b++) {
         this.bombList[b].isRevealed = true;
       }
-
-      this.gameStateText = this.loseText;
     },
     setGameWon() {
       this.gameOver = true;
@@ -332,7 +306,6 @@ export default {
           cell.isRevealed = cell.isBomb ? false : true;
         }
       }
-      this.gameStateText = this.winText;
     },
   },
 };
