@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-
+import _ from "lodash";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -14,37 +14,41 @@ export default new Vuex.Store({
         rows: 9,
         columns: 9,
         bombs: 11,
-        lb: 0.09,
-        ub: 0.12,
+        lb: 0.04,
+        ub: 0.06,
         used_clicks: 0,
         recommended_clicks: 95,
+        done: false,
       },
       {
         rows: 9,
         columns: 9,
         bombs: 11,
-        lb: 0.09,
-        ub: 0.12,
+        lb: 0.04,
+        ub: 0.06,
         used_clicks: 0,
         recommended_clicks: 95,
+        done: false,
       },
       {
         rows: 16,
         columns: 16,
         bombs: 40,
-        lb: 0.09,
-        ub: 0.12,
+        lb: 0.06,
+        ub: 0.09,
         used_clicks: 0,
         recommended_clicks: 95,
+        done: false,
       },
       {
         rows: 16,
         columns: 16,
         bombs: 40,
-        lb: 0.09,
-        ub: 0.12,
+        lb: 0.06,
+        ub: 0.09,
         used_clicks: 0,
         recommended_clicks: 95,
+        done: false,
       },
       {
         rows: 18,
@@ -54,6 +58,7 @@ export default new Vuex.Store({
         ub: 0.12,
         used_clicks: 0,
         recommended_clicks: 95,
+        done: false,
       },
       {
         rows: 18,
@@ -63,10 +68,21 @@ export default new Vuex.Store({
         ub: 0.12,
         used_clicks: 0,
         recommended_clicks: 95,
+        done: false,
       },
     ],
   },
   getters: {
+    allGridsDone: (state) => () => {
+      console.debug(
+        "PIZDA",
+        _.every(state.grids, (i) => i.done)
+      );
+      return _.every(state.grids, (i) => i.done);
+    },
+    get_grid: (state) => (grid_id) => {
+      return state.grids[grid_id];
+    },
     clicks_per_grid: (state) => (grid_id) => {
       return state.grids[grid_id].used_clicks;
     },
@@ -77,6 +93,9 @@ export default new Vuex.Store({
     },
     INCREASE_INDIVIDUAL_CLICKS(state, grid_id) {
       state.grids[grid_id].used_clicks++;
+    },
+    MARK_GRID_DONE(state, grid_id) {
+      state.grids[grid_id].done = true;
     },
   },
   actions: {},

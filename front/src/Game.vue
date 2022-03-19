@@ -1,13 +1,17 @@
 <template>
   <div id="game">
     <h4 class="game-state">Number of clicks used in this grid: {{ clicks }}</h4>
+
     <h4 class="game-state">Total number of clicks used: {{ totclicks }}</h4>
+
     <p>{{ bombStateText }}</p>
+
     <minesweeper-field
       :minefield="minefield"
       @onCellLeftClicked="onCellClicked"
       @onCellRightClicked="onCellFlagged"
     ></minesweeper-field>
+
     <app-button-switch
       v-if="false"
       id="mine-mode-switch"
@@ -17,6 +21,7 @@
 </template>
 
 <script>
+import _ from "lodash";
 import { mapState, mapMutations, mapGetters } from "vuex";
 export default {
   props: {
@@ -74,9 +79,20 @@ export default {
   created() {
     this.prepareNewGame();
   },
+  watch: {
+    fieldDone(v) {
+      if (v === true) {
+        this.mark_grid_done(this.id);
+      }
+    },
+  },
   computed: {
     ...mapState(["totclicks"]),
     ...mapGetters(["clicks_per_grid"]),
+    fieldDone() {
+      const flatfield = _.flattenDeep(this.minefield);
+      return _.every(flatfield, (i) => i.isMarked || i.isRevealed);
+    },
     clicks() {
       return this.clicks_per_grid(this.id);
     },
@@ -87,7 +103,7 @@ export default {
         this.flagIcon +
         " / " +
         this.amountOfBombs +
-        " " +
+        "g " +
         this.bombIcon
       );
     },
@@ -96,6 +112,7 @@ export default {
     ...mapMutations({
       increase_clicks: "INCREASE_CLICKS",
       increase_my_clicks: "INCREASE_INDIVIDUAL_CLICKS",
+      mark_grid_done: "MARK_GRID_DONE",
     }),
     onModeChanged(isMineMode) {
       console.log("Mode: " + (isMineMode ? "Mine" : "Flag"));

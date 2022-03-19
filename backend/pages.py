@@ -33,12 +33,7 @@ class Decision(Page):
 
 class Trade(Page):
     live_method = 'register_event'
-    form_fields = ['exit_price']
-    form_model = 'player'
 
-    def before_next_page(self):
-        if self.round_number == Constants.num_rounds:
-            self.player.set_payoff()
 
 
 
