@@ -19,9 +19,10 @@ class Trade(Page):
                 self.player.save()
             grids = self.player.grids.all()
             for g in grids:
-                g.clicks = data.get(f'clicks_{g.number}', None)
+                g.used_clicks = data.get(f'used_clicks_{g.number}', None)
+                g.clicks100 = data.get(f'clicks100_{g.number}', None)
                 g.clicks80 = data.get(f'clicks80_{g.number}', None)
-            Grid.objects.bulk_update(grids, ['clicks', 'clicks80'])
+            Grid.objects.bulk_update(grids, ['used_clicks', 'clicks80','clicks100'])
         return super().post()
 
 

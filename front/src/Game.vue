@@ -70,6 +70,7 @@ export default {
       ],
       firstClickHappened: false,
       bombList: [],
+      totBombsTriggered: 0,
       amountOfCellsMarked: 0,
       amountOfBombs: 0,
       gameOver: false,
@@ -80,23 +81,21 @@ export default {
     this.prepareNewGame();
   },
   watch: {
-    amountOfCellsMarked(v) {
-      if (!_.has(this.mygrid, "clicksTo80")) {
-        if (v / this.bombs > 0.8) {
-          this.set_grid_param({
-            grid_id: this.id,
-            param: "clicksTo80",
-            value: this.clicks_per_grid(this.id),
-          });
+    bombList: {
+      handler(newValue, oldValue) {
+        const bombRevealed = _.filter(
+          newValue,
+          _.matches({ isRevealed: true })
+        );
+        if (bombRevealed) {
+          this.totBombsTriggered = bombRevealed.length;
+          this.monitorBombs();
         }
-      }
-      if (v == this.bombs) {
-        this.set_grid_param({
-          grid_id: this.id,
-          param: "clicksTo100",
-          value: this.clicks_per_grid(this.id),
-        });
-      }
+      },
+      deep: true,
+    },
+    amountOfCellsMarked(value) {
+      this.monitorBombs();
     },
     fieldDone(v) {
       if (v === true) {
@@ -130,6 +129,25 @@ export default {
     },
   },
   methods: {
+    monitorBombs() {
+      const v = this.amountOfCellsMarked + this.totBombsTriggered;
+      if (!_.has(this.mygrid, "clicksTo80")) {
+        if (v / this.bombs >= 0.8) {
+          this.set_grid_param({
+            grid_id: this.id,
+            param: "clicksTo80",
+            value: this.clicks_per_grid(this.id),
+          });
+        }
+      }
+      if (v == this.bombs) {
+        this.set_grid_param({
+          grid_id: this.id,
+          param: "clicksTo100",
+          value: this.clicks_per_grid(this.id),
+        });
+      }
+    },
     ...mapMutations({
       set_grid_param: "SET_GRID_PARAM",
       increase_clicks: "INCREASE_CLICKS",
@@ -222,13 +240,7 @@ export default {
       }
     },
     onCellClicked(coord) {
-      this.increase_clicks();
-      this.increase_my_clicks(this.id);
-      if (this.mineModeEnabled) {
-        this.onCellMined(coord);
-      } else {
-        this.onCellFlagged(coord);
-      }
+      this.onCellMined(coord);
     },
     onCellMined(coord) {
       if (!this.firstClickHappened) {
@@ -237,6 +249,11 @@ export default {
       }
 
       let cell = this.minefield[coord.x][coord.y];
+      if (!cell.isRevealed) {
+        this.increase_clicks();
+        this.increase_my_clicks(this.id);
+      }
+
       if (!this.gameOver && cell !== undefined) {
         if (cell.isMarked) {
           return console.log(

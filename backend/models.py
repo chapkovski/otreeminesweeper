@@ -75,5 +75,6 @@ class Grid(djmodels.Model):
     columns = models.IntegerField()
     number = models.IntegerField()
     bombs = models.IntegerField()
-    clicks = models.IntegerField(initial=0)
+    used_clicks = models.IntegerField(initial=0)
     clicks80 = models.IntegerField(initial=0)
+    clicks100 = models.IntegerField(initial=0)

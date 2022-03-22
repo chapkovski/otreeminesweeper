@@ -15,7 +15,12 @@
           <div v-for="(grid, ind) in grids" :key="ind">
             <input
               type="hidden"
-              :name="`clicks_${ind + 1}`"
+              :name="`used_clicks_${ind + 1}`"
+              :value="grid.used_clicks"
+            />
+            <input
+              type="hidden"
+              :name="`clicks100_${ind + 1}`"
               :value="grid.clicksTo100"
             />
             <input

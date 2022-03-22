@@ -13,14 +13,16 @@
     <table class="table">
     <thead>
     <th>Grid number</th>
+    <th>Total clicks</th>
     <th>Clicks to 80%</th>
     <th>Clicks to 100%</th>
     </thead>
         {% for grid in player.grids.all %}
             <tr>
                 <td>{{ grid.number }}</td>
+                <td>{{ grid.used_clicks }}</td>
                 <td>{{ grid.clicks80 }}</td>
-                <td> {{ grid.clicks }}</td>
+                <td> {{ grid.clicks100 }}</td>
             </tr>
 
 

@@ -85,7 +85,6 @@ export default new Vuex.Store({
   },
   mutations: {
     SET_GRID_PARAM(state, { grid_id, param, value }) {
-      console.debug("PIZDA", grid_id, param, value);
       state.grids[grid_id][param] = value;
     },
 
