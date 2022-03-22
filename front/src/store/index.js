@@ -74,10 +74,6 @@ export default new Vuex.Store({
   },
   getters: {
     allGridsDone: (state) => () => {
-      console.debug(
-        "PIZDA",
-        _.every(state.grids, (i) => i.done)
-      );
       return _.every(state.grids, (i) => i.done);
     },
     get_grid: (state) => (grid_id) => {
@@ -88,6 +84,11 @@ export default new Vuex.Store({
     },
   },
   mutations: {
+    SET_GRID_PARAM(state, { grid_id, param, value }) {
+      console.debug("PIZDA", grid_id, param, value);
+      state.grids[grid_id][param] = value;
+    },
+
     INCREASE_CLICKS(state) {
       state.totclicks++;
     },

@@ -10,6 +10,21 @@
         </div>
       </v-app-bar>
       <v-main>
+        <div class="form-data" v-show="false">
+          <input type="hidden" name="total_clicks" :value="totclicks" />
+          <div v-for="(grid, ind) in grids" :key="ind">
+            <input
+              type="hidden"
+              :name="`clicks_${ind + 1}`"
+              :value="grid.clicksTo100"
+            />
+            <input
+              type="hidden"
+              :name="`clicks80_${ind + 1}`"
+              :value="grid.clicksTo80"
+            />
+          </div>
+        </div>
         <v-container>
           <v-row>
             <v-col>

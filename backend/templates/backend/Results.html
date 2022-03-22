@@ -2,21 +2,30 @@
 {% load otree static %}
 
 {% block title %}
-    Результаты  раунда {{ subsession.round_number }} из {{ Constants.num_rounds }}
+    Results
 {% endblock %}
 
 {% block content %}
-    <div>
-        <p>
-        Вы инвестировали {{ Constants.S }}
-        </p>
-        <p>
-        По итогам раунда Вы получили {{ player.exit_price }}
-        </p>
-        <p>
-        Доходность Вашей инвестиции составила {{ratofret}}
-        </p>
+    <div class="alert">
+        Total clicks: {{ player.total_clicks }}
     </div>
+
+    <table class="table">
+    <thead>
+    <th>Grid number</th>
+    <th>Clicks to 80%</th>
+    <th>Clicks to 100%</th>
+    </thead>
+        {% for grid in player.grids.all %}
+            <tr>
+                <td>{{ grid.number }}</td>
+                <td>{{ grid.clicks80 }}</td>
+                <td> {{ grid.clicks }}</td>
+            </tr>
+
+
+        {% endfor %}
+</table>
     {% next_button %}
 {% endblock %}
 

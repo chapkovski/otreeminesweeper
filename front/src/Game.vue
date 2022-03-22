@@ -80,6 +80,24 @@ export default {
     this.prepareNewGame();
   },
   watch: {
+    amountOfCellsMarked(v) {
+      if (!_.has(this.mygrid, "clicksTo80")) {
+        if (v / this.bombs > 0.8) {
+          this.set_grid_param({
+            grid_id: this.id,
+            param: "clicksTo80",
+            value: this.clicks_per_grid(this.id),
+          });
+        }
+      }
+      if (v == this.bombs) {
+        this.set_grid_param({
+          grid_id: this.id,
+          param: "clicksTo100",
+          value: this.clicks_per_grid(this.id),
+        });
+      }
+    },
     fieldDone(v) {
       if (v === true) {
         this.mark_grid_done(this.id);
@@ -88,7 +106,10 @@ export default {
   },
   computed: {
     ...mapState(["totclicks"]),
-    ...mapGetters(["clicks_per_grid"]),
+    ...mapGetters(["clicks_per_grid", "get_grid"]),
+    mygrid() {
+      return this.get_grid(this.id);
+    },
     fieldDone() {
       const flatfield = _.flattenDeep(this.minefield);
       return _.every(flatfield, (i) => i.isMarked || i.isRevealed);
@@ -110,6 +131,7 @@ export default {
   },
   methods: {
     ...mapMutations({
+      set_grid_param: "SET_GRID_PARAM",
       increase_clicks: "INCREASE_CLICKS",
       increase_my_clicks: "INCREASE_INDIVIDUAL_CLICKS",
       mark_grid_done: "MARK_GRID_DONE",

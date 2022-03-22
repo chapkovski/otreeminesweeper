@@ -29,8 +29,12 @@ class Constants(BaseConstants):
     players_per_group = None
     num_rounds = 1
 
+
 class Subsession(BaseSubsession):
-    pass
+    def creating_session(self):
+        for p in self.get_players():
+            for i in range(1,7):
+                p.grids.create(number=i )
 
 
 class Group(BaseGroup):
@@ -38,7 +42,7 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-
+    total_clicks = models.IntegerField()
 
     def register_event(self, data):
         timestamp = timezone.now()
@@ -65,18 +69,11 @@ class Player(BasePlayer):
         self.payoff = self.final_payoff
 
 
-class Event(djmodels.Model):
-    class Meta:
-        ordering = ['timestamp']
-        get_latest_by = 'timestamp'
-
-    owner = djmodels.ForeignKey(to=Player, on_delete=djmodels.CASCADE, related_name='events')
-    name = models.StringField()
-    timestamp = djmodels.DateTimeField(null=True, blank=True)
-    unix_timestamp = models.IntegerField()
-    body = models.StringField()
-    current_price = models.FloatField()
-    price_index = models.IntegerField()
-    slider_value = models.IntegerField()
-    secs_since_round_starts = models.IntegerField()
-    clicked_volatility = models.FloatField()
+class Grid(djmodels.Model):
+    owner = djmodels.ForeignKey(to=Player, on_delete=djmodels.CASCADE, related_name='grids')
+    rows = models.IntegerField()
+    columns = models.IntegerField()
+    number = models.IntegerField()
+    bombs = models.IntegerField()
+    clicks = models.IntegerField(initial=0)
+    clicks80 = models.IntegerField(initial=0)
