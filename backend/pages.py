@@ -9,16 +9,18 @@ class Trade(Page):
     live_method = 'register_event'
 
     def post(self):
+        print(self.request.POST)
         data = self.request.POST.dict()
         if data:
-            total_clicks = data.get('total_clicks')
+            data = {k: int(v) for k, v in data.items() if v != '' and k!='csrfmiddlewaretoken'}
+            total_clicks = data.get('total_clicks', None)
             if total_clicks:
                 self.player.total_clicks = int(total_clicks)
                 self.player.save()
             grids = self.player.grids.all()
             for g in grids:
-                g.clicks = data.get(f'clicks_{g.number}')
-                g.clicks80 = data.get(f'clicks80_{g.number}')
+                g.clicks = data.get(f'clicks_{g.number}', None)
+                g.clicks80 = data.get(f'clicks80_{g.number}', None)
             Grid.objects.bulk_update(grids, ['clicks', 'clicks80'])
         return super().post()
 
