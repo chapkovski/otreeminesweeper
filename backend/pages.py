@@ -8,7 +8,7 @@ from pprint import pprint
 class Trade(Page):
     live_method = 'register_event'
 
-    def before_next_page(self):
+    def post(self):
         data = self.request.POST.dict()
         if data:
             total_clicks = data.get('total_clicks')
@@ -20,8 +20,7 @@ class Trade(Page):
                 g.clicks = data.get(f'clicks_{g.number}')
                 g.clicks80 = data.get(f'clicks80_{g.number}')
             Grid.objects.bulk_update(grids, ['clicks', 'clicks80'])
-            print(self.request.POST.dict())
-            print('*' * 100)
+        return super().post()
 
 
 class Results(Page):
