@@ -3,7 +3,8 @@
     <h4 class="game-state">Number of clicks used in this grid: {{ clicks }}</h4>
 
     <h4 class="game-state">Total number of clicks used: {{ totclicks }}</h4>
-
+    <h4>blownUpBombs {{ totBombsTriggered }}</h4>
+    <h4>unmarkedBombs {{ unmarkedBombs }}</h4>
     <p>{{ bombStateText }}</p>
 
     <minesweeper-field
@@ -106,6 +107,11 @@ export default {
   computed: {
     ...mapState(["totclicks"]),
     ...mapGetters(["clicks_per_grid", "get_grid"]),
+    unmarkedBombs() {
+      return _.filter(this.bombList, _.matches({isBomb:true,  isMarked: false, isRevealed: false})).length;
+      
+    },
+    
     mygrid() {
       return this.get_grid(this.id);
     },

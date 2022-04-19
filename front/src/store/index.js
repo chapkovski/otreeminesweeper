@@ -5,10 +5,49 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    left_click_cost:0.01,
     budget: 20,
     max_clicks: 400,
     remaining_clicks: 400,
     totclicks: 0,
+    practice_grids: [
+      {
+        rows: 10,
+        columns: 10,
+        bombs: 10,
+        penalty: 0.05,
+        lb: 0.04,
+        ub: 0.06,
+        used_clicks: 0,
+        right_clicks: 0,
+        recommended_clicks: 95,
+        done: false,
+      },
+      {
+        rows: 15,
+        columns: 15,
+        bombs: 30,
+        penalty: 0.08,
+        lb: 0.04,
+        ub: 0.06,
+        used_clicks: 0,
+        right_clicks: 0,
+        recommended_clicks: 95,
+        done: false,
+      },
+      {
+        rows: 18,
+        columns: 18,
+        bombs: 50,
+        penalty: 0.11,
+        lb: 0.06,
+        ub: 0.09,
+        used_clicks: 0,
+        right_clicks: 0,
+        recommended_clicks: 95,
+        done: false,
+      },
+    ],
     grids: [
       {
         rows: 9,
@@ -75,6 +114,9 @@ export default new Vuex.Store({
   getters: {
     allGridsDone: (state) => () => {
       return _.every(state.grids, (i) => i.done);
+    },
+    get_practice_grid: (state) => (grid_id) => {
+      return state.practice_grids[grid_id];
     },
     get_grid: (state) => (grid_id) => {
       return state.grids[grid_id];

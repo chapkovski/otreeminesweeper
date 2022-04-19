@@ -7,6 +7,10 @@ module.exports = {
       entry: "./src/main.js",
       chunks: ["chunk-vendors"],
     },
+    practice: {
+      entry: "./src/practice.js",
+      chunks: ["chunk-vendors"],
+    },
 
   },
   // Should be STATIC_URL + path/to/build

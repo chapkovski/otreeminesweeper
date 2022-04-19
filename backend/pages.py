@@ -3,7 +3,8 @@ from ._builtin import Page, WaitPage
 from .models import Constants, Grid
 import json
 from pprint import pprint
-
+class Practice(Page):
+    live_method = 'register_event'
 
 class Trade(Page):
     live_method = 'register_event'
@@ -31,8 +32,9 @@ class Results(Page):
 
 
 page_sequence = [
+    Practice,
 
     Trade,
-    Results
+    # Results
 
 ]

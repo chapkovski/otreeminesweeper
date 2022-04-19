@@ -18,12 +18,55 @@
       </v-card-title>
 
       <v-card-text>
-        <minesweeper-game
-          :rows="rows"
-          :columns="columns"
-          :bombs="bombs"
-          :id="id"
-        ></minesweeper-game>
+        <v-row>
+          <v-col>
+            <minesweeper-game
+              :rows="rows"
+              :columns="columns"
+              :bombs="bombs"
+              :id="id"
+            ></minesweeper-game>
+          </v-col>
+          <v-col v-if="practice">
+            <v-card class="my-3">
+              <v-card-title>Info:</v-card-title>
+              <v-card-text>
+                <v-list>
+                  <v-list-item-group>
+                    <v-list-item
+                      >Number of left clicks:
+                      <div class="ml-auto">{{ mygrid.used_clicks }}</div>
+                    </v-list-item>
+                    <v-list-item
+                      >Number of right clicks:
+                      <div class="ml-auto">{{ mygrid.right_clicks }}</div>
+                    </v-list-item>
+                    <v-list-item
+                      >Cost of left clicks:
+                      <div class="ml-auto">
+                        ${{ $store.state.left_click_cost }}
+                      </div>
+                    </v-list-item>
+                    <v-list-item
+                      >Penalty for accidental bombs:
+                      <div class="ml-auto">$ {{ mygrid.penalty }}</div>
+                    </v-list-item>
+                    <v-list-item
+                      >Penalty for remaining unmarked bombs:
+                      <div class="ml-auto">
+                        {{ this.penalty_for_unmarked }}
+                      </div></v-list-item
+                    >
+                    <v-list-item
+                      >Benefit for work on grid:
+                      <div class="ml-auto">{{ this.benefit }}</div>
+                    </v-list-item>
+                  </v-list-item-group>
+                </v-list>
+              </v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
       </v-card-text>
 
       <v-divider></v-divider>
@@ -42,6 +85,8 @@
 import { mapGetters } from "vuex";
 export default {
   props: {
+    practice: { type: Boolean, default: false },
+
     id: Number,
     rows: {
       type: Number,
@@ -60,9 +105,19 @@ export default {
     dialog: false,
   }),
   computed: {
-    ...mapGetters(["get_grid"]),
+    ...mapGetters(["get_grid", "get_practice_grid"]),
     mygrid() {
-      return this.get_grid(this.id);
+      if (this.practice) {
+        return this.get_practice_grid(this.id);
+      } else {
+        return this.get_grid(this.id);
+      }
+    },
+    benefit() {
+      return;
+    },
+    penalty_for_unmarked() {
+      return;
     },
   },
 };

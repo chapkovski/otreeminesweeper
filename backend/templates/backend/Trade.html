@@ -7,9 +7,9 @@
 
 
 {% block body_main %}
-       <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
     />
     <link href="https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'front/css/chunk-vendors.css' %}">
@@ -18,7 +18,7 @@
         {% csrf_token %}
 
         <div id="app"></div>
-
+        <script type="text/javascript" src="{% static 'front/js/chunk-common.js' %}"></script>
         <script type="text/javascript" src="{% static 'front/js/chunk-vendors.js' %}"></script>
         <script type="text/javascript" src="{% static 'front/js/main.js' %}"></script>
     </form>

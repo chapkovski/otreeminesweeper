@@ -1,0 +1,31 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Page title
+{% endblock %}
+
+
+{% block body_main %}
+
+       <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <link href="https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c" rel="stylesheet">
+    <script type="text/javascript" src="{% static 'front/js/chunk-common.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'front/css/chunk-vendors.css' %}">
+    <link rel="stylesheet" href="{% static 'front/css/main.css' %}">
+    <form action='' method="post" role="form" id="form" autocomplete="off">
+        {% csrf_token %}
+
+        <div id="app"></div>
+
+        <script type="text/javascript" src="{% static 'front/js/chunk-vendors.js' %}"></script>
+        <script type="text/javascript" src="{% static 'front/js/practice.js' %}"></script>
+    </form>
+
+{% endblock %}
+
+{% block live %}
+{% endblock %}
