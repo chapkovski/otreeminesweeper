@@ -23,7 +23,7 @@ export default new Vuex.Store({
     },
     penalty_for_unmarked: (state) => (grid_id) => {
       const grid = state.grids[grid_id];
-      return grid.bombs_non_revealed * grid.penalty;
+      return grid.bombs_non_revealed * grid.penalty * 0.8;
     },
     penalty_for_blown_up: (state) => (grid_id) => {
       const grid = state.grids[grid_id];
