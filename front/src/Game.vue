@@ -3,8 +3,8 @@
     <h4 class="game-state">Number of clicks used in this grid: {{ clicks }}</h4>
 
     <h4 class="game-state">Total number of clicks used: {{ totclicks }}</h4>
-    <h4>blownUpBombs {{ totBombsTriggered }}</h4>
-    <h4>unmarkedBombs {{ unmarkedBombs }}</h4>
+
+  
     <p>{{ bombStateText }}</p>
 
     <minesweeper-field
@@ -12,12 +12,6 @@
       @onCellLeftClicked="onCellClicked"
       @onCellRightClicked="onCellFlagged"
     ></minesweeper-field>
-
-    <app-button-switch
-      v-if="false"
-      id="mine-mode-switch"
-      @onSelected="onModeChanged"
-    ></app-button-switch>
   </div>
 </template>
 
@@ -27,6 +21,7 @@ import { mapState, mapMutations, mapGetters } from "vuex";
 export default {
   props: {
     id: Number,
+    practice: { type: Boolean, default: false },
     bombIcon: {
       type: String,
       default: "💣",
@@ -82,6 +77,10 @@ export default {
     this.prepareNewGame();
   },
   watch: {
+    penalty_for_unmarked(value) {
+      console.debug("JOPA", value);
+      this.$emit("onPenaltyForUnmarked", value);
+    },
     bombList: {
       handler(newValue, oldValue) {
         const bombRevealed = _.filter(
@@ -98,6 +97,15 @@ export default {
     amountOfCellsMarked(value) {
       this.monitorBombs();
     },
+    numBlownBombs(val) {
+      this.setNumBlownBombs({ grid_id: this.id, value: val });
+    },
+    numMarkedCorrectly(val) {
+      this.setNumMarkedCorrectly({ grid_id: this.id, value: val });
+    },
+    numUnmarkedBombs(val) {
+      this.setNumUnmarkedBombs({ grid_id: this.id, value: val });
+    },
     fieldDone(v) {
       if (v === true) {
         this.mark_grid_done(this.id);
@@ -107,11 +115,26 @@ export default {
   computed: {
     ...mapState(["totclicks"]),
     ...mapGetters(["clicks_per_grid", "get_grid"]),
-    unmarkedBombs() {
-      return _.filter(this.bombList, _.matches({isBomb:true,  isMarked: false, isRevealed: false})).length;
-      
+    numBlownBombs() {
+      return _.filter(
+        this.bombList,
+        _.matches({ isBomb: true, isMarked: false, isRevealed: true })
+      ).length;
     },
-    
+
+    numUnmarkedBombs() {
+      return _.filter(
+        this.bombList,
+        _.matches({ isBomb: true, isMarked: false, isRevealed: false })
+      ).length;
+    },
+    numMarkedCorrectly() {
+      return _.filter(
+        this.bombList,
+        _.matches({ isBomb: true, isMarked: true, isRevealed: false })
+      ).length;
+    },
+
     mygrid() {
       return this.get_grid(this.id);
     },
@@ -159,11 +182,12 @@ export default {
       increase_clicks: "INCREASE_CLICKS",
       increase_my_clicks: "INCREASE_INDIVIDUAL_CLICKS",
       mark_grid_done: "MARK_GRID_DONE",
+      setNumBlownBombs: "SET_NUM_BLOWN_BOMBS",
+      setNumUnmarkedBombs: "SET_NUM_UNMARKED_BOMBS",
+      increaseGridRightClicks: "INCREASE_GRID_RIGHT_CLICKS",
+      setNumMarkedCorrectly: "SET_NUM_MARKED_CORRECTLY",
     }),
-    onModeChanged(isMineMode) {
-      console.log("Mode: " + (isMineMode ? "Mine" : "Flag"));
-      this.mineModeEnabled = isMineMode;
-    },
+
     prepareNewGame() {
       // Reset variables
       this.gameOver = false;
@@ -198,8 +222,9 @@ export default {
           });
         }
       }
+      this.placeMines();
     },
-    placeMines(excludeCoord) {
+    placeMines() {
       console.log(
         "Creating field (" + this.rows + " x " + this.columns + ") ..."
       );
@@ -210,10 +235,8 @@ export default {
       // Fill the minefield
       for (let x = 0; x < this.rows; x++) {
         for (let y = 0; y < this.columns; y++) {
-          if (excludeCoord.x != x || excludeCoord.y != y) {
-            // Save the coords in a linear array
-            coords.push({ x: x, y: y });
-          }
+          // Save the coords in a linear array
+          coords.push({ x: x, y: y });
         }
       }
 
@@ -251,7 +274,6 @@ export default {
     onCellMined(coord) {
       if (!this.firstClickHappened) {
         this.firstClickHappened = true;
-        this.placeMines(coord);
       }
 
       let cell = this.minefield[coord.x][coord.y];
@@ -308,6 +330,7 @@ export default {
         }
         console.log("(Un)Flagging: " + coord.x + ", " + coord.y + "...");
         cell.isMarked = !cell.isMarked;
+        this.increaseGridRightClicks(this.id);
         this.amountOfCellsMarked += cell.isMarked ? 1 : -1;
 
         // Check if all bombs are marked

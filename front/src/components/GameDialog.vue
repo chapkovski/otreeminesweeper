@@ -21,10 +21,12 @@
         <v-row>
           <v-col>
             <minesweeper-game
+              :practice="true"
               :rows="rows"
               :columns="columns"
               :bombs="bombs"
               :id="id"
+              @onPenaltyForUnmarked="onPenaltyForUnmarked"
             ></minesweeper-game>
           </v-col>
           <v-col v-if="practice">
@@ -49,17 +51,21 @@
                     </v-list-item>
                     <v-list-item
                       >Penalty for accidental bombs:
-                      <div class="ml-auto">$ {{ mygrid.penalty }}</div>
+                      <div class="ml-auto">
+                        $ {{ penalty_for_blown_up(this.id).toFixed(2) }}
+                      </div>
                     </v-list-item>
                     <v-list-item
                       >Penalty for remaining unmarked bombs:
                       <div class="ml-auto">
-                        {{ this.penalty_for_unmarked }}
+                        {{ penalty_for_unmarked(this.id).toFixed(2) }}
                       </div></v-list-item
                     >
                     <v-list-item
                       >Benefit for work on grid:
-                      <div class="ml-auto">{{ this.benefit }}</div>
+                      <div class="ml-auto">
+                        {{ benefit_for_work(this.id).toFixed(2) }}
+                      </div>
                     </v-list-item>
                   </v-list-item-group>
                 </v-list>
@@ -105,19 +111,23 @@ export default {
     dialog: false,
   }),
   computed: {
-    ...mapGetters(["get_grid", "get_practice_grid"]),
+    ...mapGetters([
+      "get_grid",
+      "get_practice_grid",
+      "penalty_for_unmarked",
+      "penalty_for_blown_up",
+      "benefit_for_work",
+    ]),
     mygrid() {
-      if (this.practice) {
-        return this.get_practice_grid(this.id);
-      } else {
-        return this.get_grid(this.id);
-      }
+      return this.get_grid(this.id);
     },
     benefit() {
       return;
     },
-    penalty_for_unmarked() {
-      return;
+  },
+  methods: {
+    onPenaltyForUnmarked(value) {
+      this.penalty_for_unmarked = value;
     },
   },
 };
