@@ -4,7 +4,6 @@
 
     <h4 class="game-state">Total number of clicks used: {{ totclicks }}</h4>
 
-  
     <p>{{ bombStateText }}</p>
 
     <minesweeper-field
@@ -74,11 +73,11 @@ export default {
     };
   },
   created() {
+    console.debug("do we initialize??");
     this.prepareNewGame();
   },
   watch: {
     penalty_for_unmarked(value) {
-      console.debug("JOPA", value);
       this.$emit("onPenaltyForUnmarked", value);
     },
     bombList: {
