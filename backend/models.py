@@ -74,7 +74,7 @@ class Group(BaseGroup):
 class Player(BasePlayer):
     total_clicks = models.IntegerField()
     budget_counter = models.IntegerField(initial=0)
-    total_penalty = djmodels.DecimalField(null=True, decimal_places=2)
+    total_penalty = djmodels.DecimalField(null=True, decimal_places=2, max_digits=10)
     endowment = models.IntegerField()
     time_for_practice = models.IntegerField()
     left_click_cost = models.FloatField()
