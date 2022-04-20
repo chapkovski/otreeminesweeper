@@ -2,7 +2,7 @@
     <div id="app">
         <v-app>
             <v-app-bar app>
-                <Timer :secsToEnd="11" progressMessage="You can quit the practice round in" timerFinish="You can proceed to the next page now" @timerDone="timerDone = true" />
+                <Timer :secsToEnd="time_for_practice" progressMessage="You can quit the practice round in" timerFinish="You can proceed to the next page now" @timerDone="timerDone = true" />
             </v-app-bar>
             <v-main>
                 <v-container>
@@ -80,7 +80,8 @@ export default {
     name: "app",
     components: { Timer },
     data() {
-        return { timerDone: false };
+        return { timerDone: false,
+        time_for_practice:window.time_for_practice};
     },
     computed: {
         ...mapState(["totclicks", "grids"]),

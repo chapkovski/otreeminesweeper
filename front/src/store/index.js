@@ -5,10 +5,11 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    left_click_cost: 0.01,
+    budget_counter: 0,
+    left_click_cost: window.left_click_cost,
     budget: 20,
-    max_clicks: 400,
-    remaining_clicks: 400,
+    max_clicks: window.max_clicks,
+    remaining_clicks: window.max_clicks,
     totclicks: 0,
     grids: window.grids,
     practice: window.practice,
@@ -16,6 +17,9 @@ export default new Vuex.Store({
   getters: {
     allGridsDone: (state) => () => {
       return _.every(state.grids, (i) => i.done);
+    },
+    limitExhausted: (state) => () => {
+      return state.totclicks >= state.max_clicks;
     },
 
     get_grid: (state) => (grid_id) => {
@@ -29,6 +33,10 @@ export default new Vuex.Store({
       const grid = state.grids[grid_id];
       return grid.bombs_blown * grid.penalty;
     },
+    total_penalty: (state, { penalty_for_unmarked, penalty_for_blown_up }) => (
+      grid_id
+    ) => penalty_for_unmarked(grid_id) + penalty_for_blown_up(grid_id),
+
     benefit_for_work: (state) => (grid_id) => {
       const grid = state.grids[grid_id];
       return (
@@ -59,6 +67,9 @@ export default new Vuex.Store({
 
     INCREASE_CLICKS(state) {
       state.totclicks++;
+    },
+    INCREASE_BUDGET_COUNTER(state) {
+      state.budget_counter++;
     },
     INCREASE_INDIVIDUAL_CLICKS(state, grid_id) {
       state.grids[grid_id].used_clicks++;

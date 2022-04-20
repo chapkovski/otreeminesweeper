@@ -2,17 +2,35 @@
   <div id="app">
     <v-app>
       <v-app-bar app>
-        <div>Total number of clicks: {{ totclicks }}</div>
+        <div v-if="limitExhausted()">
+          <v-alert type="danger" color="red"
+            >You exhausted number of allowed clicks</v-alert
+          >
+        </div>
+
+        <div v-if="!limitExhausted()">
+          Total number of clicks: {{ totclicks }}
+        </div>
         <div v-if="false">
           <div class="mx-3">Total number of clicks allowed: 400</div>
           <div class="mx-3">Clicks left:</div>
           <div class="mx-3">Endowment: $20</div>
         </div>
+        <v-spacer></v-spacer>
+        <div class="ml-auto">
+          <budget />
+        </div>
       </v-app-bar>
       <v-main>
         <div class="form-data" v-show="false">
           <input type="hidden" name="total_clicks" :value="totclicks" />
+          <input type="hidden" name="budget_counter" :value="budget_counter" />
           <div v-for="(grid, ind) in grids" :key="ind">
+            <input
+              type="hidden"
+              :name="`total_penalty_${ind + 1}`"
+              :value="total_penalty(ind)"
+            />
             <input
               type="hidden"
               :name="`used_clicks_${ind + 1}`"
@@ -56,17 +74,15 @@
                       <tbody>
                         <tr v-for="(grid, i) in grids" :key="i">
                           <td>{{ i + 1 }}</td>
-                          <td>
-                            ${{
-                              (((grid.lb + grid.ub) / 2) * grid.bombs).toFixed(
-                                2
-                              )
-                            }}
-                          </td>
+                          <td>${{ grid.penalty }}</td>
 
                           <td>{{ grid.used_clicks }}</td>
                           <td>
-                            <game-dialog v-bind="grid" :id="i"></game-dialog>
+                            <game-dialog
+                              v-if="!limitExhausted()"
+                              v-bind="grid"
+                              :id="i"
+                            ></game-dialog>
                           </td>
                           <td>{{ grid.done ? "Yes" : "No" }}</td>
                         </tr>
@@ -82,7 +98,7 @@
       <transition
         enter-active-class="animate__animated animate__backInUp animate__slow"
       >
-        <v-bottom-navigation grow v-if="allGridsDone()">
+        <v-bottom-navigation grow v-if="allGridsDone() || limitExhausted()">
           <v-btn
             elevation="2"
             color="error"
@@ -100,14 +116,16 @@
 
 <script>
 import { mapState, mapGetters } from "vuex";
+import Budget from "./Budget.vue";
 export default {
   name: "app",
+  components: { Budget },
   data() {
     return {};
   },
   computed: {
-    ...mapState(["totclicks", "grids"]),
-    ...mapGetters(["allGridsDone"]),
+    ...mapState(["totclicks", "grids", "budget_counter"]),
+    ...mapGetters(["allGridsDone", "limitExhausted", "total_penalty"]),
   },
   methods: {},
 };
@@ -117,6 +135,7 @@ export default {
 * {
   box-sizing: border-box;
 }
+
 .my-btn {
   -webkit-text-size-adjust: 100%;
   word-break: normal;
@@ -180,6 +199,7 @@ export default {
   transition: inherit;
   transition-property: opacity;
 }
+
 html,
 body {
   margin: 0;

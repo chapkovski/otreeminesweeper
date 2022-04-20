@@ -6,9 +6,12 @@ SESSION_CONFIGS = [
         display_name="prototype 1",
         num_demo_participants=1,
         app_sequence=['backend'],
+        time_for_practice=10,
+        max_clicks=10,
+        endowment=20,
+        left_click_cost=0.01
 
     ),
-
 
 ]
 
@@ -28,7 +31,8 @@ LANGUAGE_CODE = 'en'
 # e.g. EUR, GBP, CNY, JPY
 REAL_WORLD_CURRENCY_CODE = 'USD'
 USE_POINTS = True
-
+POINTS_DECIMAL_PLACES = 2
+REAL_WORLD_CURRENCY_DECIMAL_PLACES = 2
 ADMIN_USERNAME = 'admin'
 # for security, best to set admin password in an environment variable
 ADMIN_PASSWORD = environ.get('OTREE_ADMIN_PASSWORD')

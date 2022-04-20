@@ -2,32 +2,45 @@
 {% load otree static %}
 
 {% block title %}
-    Results
+    Results. Period {{ view.round_number }}
 {% endblock %}
 
 {% block content %}
-    <div class="alert">
-        Total clicks: {{ player.total_clicks }}
+
+
+
+
+
+
+    <div class="card my-3">
+        <div class="card-text">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    The period {{ view.round_number }} has ended. Here are the results for the period.
+                </li>
+                <li class="list-group-item">
+                    You used {{ player.total_clicks }} number of clicks which reduces your endowment by
+                    ${{ player.get_clicks_fine|stringformat:".2f" }}. You receive a total penalty of
+                    ${{ player.total_penalty }}
+                    for accidentally blowing up bombs and failing to mark bombs.
+                </li>
+                <li class="list-group-item font-weight-bold">
+                    So your payoff for this period is ${{ player.payoff }}.
+                </li>
+                <li class="list-group-item">
+                    Please Remember your supervisor will randomly select your performance from 1 of the 2 periods to
+                    calculate
+                    your compensation.
+                </li>
+                <li class="list-group-item">
+                    Please think about how you can adjust your gameplay for the next set of grids to better achieve the
+                    main
+                    objective.
+                </li>
+
+            </ul>
+        </div>
     </div>
-
-    <table class="table">
-    <thead>
-    <th>Grid number</th>
-    <th>Total clicks</th>
-    <th>Clicks to 80%</th>
-    <th>Clicks to 100%</th>
-    </thead>
-        {% for grid in player.grids.all %}
-            <tr>
-                <td>{{ grid.number }}</td>
-                <td>{{ grid.used_clicks }}</td>
-                <td>{{ grid.clicks80 }}</td>
-                <td> {{ grid.clicks100 }}</td>
-            </tr>
-
-
-        {% endfor %}
-</table>
     {% next_button %}
 {% endblock %}
 

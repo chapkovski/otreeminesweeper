@@ -3,38 +3,14 @@
   columns: 10
   bombs: 10
   penalty: 0.05
-  lb: 0.04
-  ub: 0.06
-  used_clicks: 0
-  right_clicks: 0
   recommended_clicks: 95
-  done: false
-  bombs_blown: 0
-  bombs_marked_correctly: 0
-  bombs_non_revealed: 10
 - rows: 15
   columns: 15
   bombs: 30
   penalty: 0.08
-  lb: 0.04
-  ub: 0.06
-  used_clicks: 0
-  right_clicks: 0
   recommended_clicks: 95
-  done: false
-  bombs_blown: 0
-  bombs_marked_correctly: 0
-  bombs_non_revealed: 30
 - rows: 18
   columns: 18
   bombs: 50
   penalty: 0.11
-  lb: 0.06
-  ub: 0.09
-  used_clicks: 0
-  right_clicks: 0
   recommended_clicks: 95
-  done: false
-  bombs_blown: 0
-  bombs_marked_correctly: 0
-  bombs_non_revealed: 50
