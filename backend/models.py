@@ -14,13 +14,14 @@ from django.db import models as djmodels
 import numpy as np
 from scipy.stats import norm
 import random
+import yaml
 import json
 from pprint import pprint
 
-author = 'Your name here'
+author = 'Philipp Chapkovski, Ph.D. chapkovski@gmail.com'
 
 doc = """
-Your app description
+minesweeper game
 """
 
 

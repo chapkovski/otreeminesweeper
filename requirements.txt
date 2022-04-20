@@ -3,3 +3,4 @@ psycopg2==2.8.6
 numpy
 pandas
 scipy
+pyyaml
