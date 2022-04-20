@@ -68,7 +68,7 @@
                             Clicks used per grid
                           </th>
                           <th class="text-left"></th>
-                          <th class="text-left">Grid done:</th>
+                          
                         </tr>
                       </thead>
                       <tbody>
@@ -84,7 +84,7 @@
                               :id="i"
                             ></game-dialog>
                           </td>
-                          <td>{{ grid.done ? "Yes" : "No" }}</td>
+                         
                         </tr>
                       </tbody>
                     </template>

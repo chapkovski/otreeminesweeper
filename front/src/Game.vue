@@ -327,6 +327,9 @@ export default {
             "Can't flag revealed tile: " + coord.x + ", " + coord.y
           );
         }
+        if (!cell.isMarked && this.amountOfCellsMarked >= this.bombs) {
+          return console.log("youve exhausted number of available markers");
+        }
         console.log("(Un)Flagging: " + coord.x + ", " + coord.y + "...");
         cell.isMarked = !cell.isMarked;
         this.increaseGridRightClicks(this.id);
@@ -383,12 +386,12 @@ export default {
     setGameWon() {
       this.gameOver = true;
       // Reveal all cells
-      for (let x = 0; x < this.rows; x++) {
-        for (let y = 0; y < this.columns; y++) {
-          let cell = this.minefield[x][y];
-          cell.isRevealed = cell.isBomb ? false : true;
-        }
-      }
+      // for (let x = 0; x < this.rows; x++) {
+      //   for (let y = 0; y < this.columns; y++) {
+      //     let cell = this.minefield[x][y];
+      //     cell.isRevealed = cell.isBomb ? false : true;
+      //   }
+      // }
     },
   },
 };
