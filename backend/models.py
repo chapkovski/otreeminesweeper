@@ -8,6 +8,7 @@ from otree.api import (
     Currency as c,
     currency_range,
 )
+
 from django.utils.dateformat import format
 from django.utils import timezone
 from django.db import models as djmodels
@@ -34,6 +35,14 @@ addendum = dict(
 pl = lambda i: math.ceil(i.get('bombs', 0) * 0.8) * i.get('penalty', 0)
 
 
+def grid_cleaner(g):
+    g = g.copy()
+    for i in addendum.keys():
+        g.pop(i)
+    g.pop('bombs_non_revealed')
+    return g
+
+
 class Constants(BaseConstants):
     name_in_url = 'backend'
     players_per_group = None
@@ -58,13 +67,19 @@ class Constants(BaseConstants):
 class Subsession(BaseSubsession):
     def creating_session(self):
         c = self.session.config
+        grids = []
         for p in self.get_players():
             p.endowment = c.get('endowment')
             p.time_for_practice = c.get('time_for_practice')
             p.left_click_cost = c.get('left_click_cost')
             p.max_clicks = c.get('max_clicks')
-            for i in range(1, 7):
-                p.grids.create(number=i)
+            for i, g in enumerate(Constants.main_grids, start=1):
+                _g = grid_cleaner(g)
+                grids.append(Grid(**_g, owner=p, number=i, practice=False))
+            for i, g in enumerate(Constants.practice_grids, start=1):
+                _g = grid_cleaner(g)
+                grids.append(Grid(**_g, owner=p, number=i, practice=True))
+        Grid.objects.bulk_create(grids)
 
 
 class Group(BaseGroup):
@@ -79,6 +94,21 @@ class Player(BasePlayer):
     time_for_practice = models.IntegerField()
     left_click_cost = models.FloatField()
     max_clicks = models.IntegerField()
+
+    def get_practice_grids(self):
+        return self.get_json_grids(practice=True)
+
+    def get_main_grids(self):
+        return self.get_json_grids(practice=False)
+
+    def get_json_grids(self, practice=False):
+        res = self.grids.filter(practice=practice).values()
+        b80 = lambda x: math.ceil(x.get('bombs') * 0.8)
+        res = [{**i, 'bombs80': b80(i), **addendum, 'bombs_non_revealed':i.get('bombs')} for i in res]
+        return res
+
+    def get_reversed_grids(self):
+        return self.grids.filter(practice=False).order_by('-number')
 
     def register_event(self, data):
         timestamp = timezone.now()
@@ -107,12 +137,16 @@ class Player(BasePlayer):
 
 
 class Grid(djmodels.Model):
+    practice = models.BooleanField()
     owner = djmodels.ForeignKey(to=Player, on_delete=djmodels.CASCADE, related_name='grids')
     rows = models.IntegerField()
     columns = models.IntegerField()
     number = models.IntegerField()
     bombs = models.IntegerField()
     total_penalty = models.FloatField()
+    potential_loss = models.FloatField()
+    penalty = models.FloatField()
+    recommended_clicks = models.IntegerField()
     used_clicks = models.IntegerField(initial=0)
     clicks80 = models.IntegerField(initial=0)
     clicks100 = models.IntegerField(initial=0)

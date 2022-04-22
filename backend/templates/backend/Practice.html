@@ -19,12 +19,13 @@
     <form action='' method="post" role="form" id="form" autocomplete="off">
         {% csrf_token %}
         <script>
-            window.grids = {{ Constants.practice_grids|json }}
+            window.grids =  {{ player.get_practice_grids|json }};
             window.practice = true;
             window.time_for_practice = {{player.time_for_practice|json}};
             window.left_click_cost = {{player.left_click_cost|json}};
 
         </script>
+
         <div id="app"></div>
         <script type="text/javascript" src="{% static 'front/js/chunk-common.js' %}"></script>
         <script type="text/javascript" src="{% static 'front/js/chunk-vendors.js' %}"></script>

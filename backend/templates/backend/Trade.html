@@ -18,7 +18,7 @@
     <form action='' method="post" role="form" id="form" autocomplete="off">
         {% csrf_token %}
         <script>
-            window.practice = true;
+            window.practice = false;
             window.grids = {{ Constants.main_grids|json }};
             window.max_clicks ={{ player.max_clicks|json }};
             window.left_click_cost = {{player.left_click_cost|json}};

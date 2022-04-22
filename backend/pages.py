@@ -30,7 +30,7 @@ class Trade(Page):
             if budget_counter:
                 self.player.budget_counter = int(budget_counter)
 
-            grids = self.player.grids.all()
+            grids = self.player.grids.filter(practice=False)
             for g in grids:
                 g.used_clicks = int(data.get(f'used_clicks_{g.number}', 0))
                 g.total_penalty = float(data.get(f'total_penalty_{g.number}', None))
@@ -38,7 +38,7 @@ class Trade(Page):
                 g.clicks80 = int(data.get(f'clicks80_{g.number}', 0))
             Grid.objects.bulk_update(grids, ['used_clicks', 'clicks80', 'clicks100', 'total_penalty'])
             self.player.total_penalty = round(
-                self.player.grids.all().aggregate(Sum('total_penalty')).get('total_penalty__sum', 0), 2)
+                self.player.grids.filter(practice=False).aggregate(Sum('total_penalty')).get('total_penalty__sum', 0), 2)
         return super().post()
 
     def before_next_page(self):

@@ -19,7 +19,7 @@
             </thead>
             <tbody>
 
-            {% for g in Constants.main_grids %}
+            {% for g in player.get_reversed_grids %}
                 <tr>
                 <td>{{ forloop.counter }}</td>
                 <td>${{ g.penalty }}</td>

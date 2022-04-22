@@ -98,7 +98,7 @@
       <transition
         enter-active-class="animate__animated animate__backInUp animate__slow"
       >
-        <v-bottom-navigation grow v-if="allGridsDone() || limitExhausted()">
+        <v-bottom-navigation grow >
           <v-btn
             elevation="2"
             color="error"

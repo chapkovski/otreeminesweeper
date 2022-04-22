@@ -4,7 +4,7 @@
 
     <h4 class="game-state">Total number of clicks used: {{ totclicks }}</h4>
 
-    <p>{{ bombStateText }}</p>
+    <p v-if="$store.state.practice">{{ bombStateText }}</p>
 
     <minesweeper-field
       :minefield="minefield"

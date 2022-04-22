@@ -27,11 +27,14 @@ export default new Vuex.Store({
     },
     penalty_for_unmarked: (state) => (grid_id) => {
       const grid = state.grids[grid_id];
+
+      if (grid.bombs_non_revealed > grid.bombs80) {
+        return grid.bombs80 * grid.penalty;
+      }
       const num_bombs = Math.max(
-        grid.bombs_non_revealed- Math.floor(grid.bombs * 0.2) ,
+        grid.bombs_non_revealed - Math.floor(grid.bombs * 0.2),
         0
       );
-      
       return num_bombs * grid.penalty;
     },
     penalty_for_blown_up: (state) => (grid_id) => {

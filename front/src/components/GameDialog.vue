@@ -58,13 +58,13 @@
                     <v-list-item
                       >Penalty for remaining unmarked bombs:
                       <div class="ml-auto">
-                        {{ penalty_for_unmarked(this.id).toFixed(2) }}
+                        ${{ penalty_for_unmarked(this.id).toFixed(2) }}
                       </div></v-list-item
                     >
                     <v-list-item
                       >Benefit for work on grid:
                       <div class="ml-auto">
-                        {{ benefit_for_work(this.id).toFixed(2) }}
+                        ${{ benefit_for_work(this.id).toFixed(2) }}
                       </div>
                     </v-list-item>
                   </v-list-item-group>
