@@ -9,7 +9,8 @@ SESSION_CONFIGS = [
         time_for_practice=10,
         max_clicks=10,
         endowment=20,
-        left_click_cost=0.01
+        left_click_cost=0.01,
+        freeze_seconds=5
 
     ),
 

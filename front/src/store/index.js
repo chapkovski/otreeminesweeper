@@ -5,9 +5,13 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    grid_dialog_open_id:null,
+    unfrozen_dialog: false,
+    budget_dialog: false,
     budget_counter: 0,
     left_click_cost: window.left_click_cost,
     budget: 20,
+    freezable_grid_id: window.freezable_grid_id,
     max_clicks: window.max_clicks,
     remaining_clicks: window.max_clicks,
     totclicks: 0,
@@ -84,6 +88,30 @@ export default new Vuex.Store({
     },
     MARK_GRID_DONE(state, grid_id) {
       state.grids[grid_id].done = true;
+    },
+    FREEZE_GRID(state, grid_id) {
+      state.grids[grid_id].frozen = true;
+    },
+    UNFREEZE_GRID(state, grid_id) {
+      state.grids[grid_id].frozen = false;
+    },
+    FREEZE_GRID(state, grid_id) {
+      state.grids[grid_id].frozen = true;
+    },
+    OPEN_FROZEN_GRID(state) {
+      state.grids[4].dialog_open = true;
+    },
+    CLOSE_BUDGET_DIALOG(state) {
+      state.budget_dialog = false;
+    },
+    OPEN_BUDGET_DIALOG(state) {
+      state.budget_dialog = true;
+    },
+    OPEN_UNFROZEN_DIALOG(state) {
+      state.unfrozen_dialog = true;
+    },
+    SET_OPEN_GRID(state, grid_id) {
+      state.grid_dialog_open_id = grid_id;
     },
   },
   actions: {},

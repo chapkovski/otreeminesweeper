@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <v-app>
+      <unfrozen-dialog></unfrozen-dialog>
       <v-app-bar app>
         <div v-if="limitExhausted()">
           <v-alert type="danger" color="red"
@@ -81,6 +82,7 @@
                             <game-dialog
                               v-if="!limitExhausted()"
                               v-bind="grid"
+                              
                               :id="i"
                             ></game-dialog>
                           </td>
@@ -117,9 +119,10 @@
 <script>
 import { mapState, mapGetters } from "vuex";
 import Budget from "./Budget.vue";
+import UnfrozenDialog from "./components/GridUnfrozenDialog.vue";
 export default {
   name: "app",
-  components: { Budget },
+  components: { Budget,UnfrozenDialog },
   data() {
     return {};
   },

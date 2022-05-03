@@ -14,7 +14,7 @@
 
     <v-card>
       <v-card-title class="text-h5 grey lighten-2">
-        Grid {{ id }}
+        Grid {{ id + 1 }}
       </v-card-title>
 
       <v-card-text>
@@ -88,9 +88,10 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapState } from "vuex";
 export default {
   props: {
+    dialog_open: { type: Boolean, default: false },
     practice: { type: Boolean, default: false },
 
     id: Number,
@@ -107,10 +108,16 @@ export default {
       default: 10,
     },
   },
-  data: () => ({
-    dialog: false,
+  data: (instance) => ({
+    dialog: instance.dialog_open,
   }),
+  watch: {
+    grid_dialog_open_id(v) {
+      this.dialog = this.id === v;
+    },
+  },
   computed: {
+    ...mapState(["grid_dialog_open_id"]),
     ...mapGetters([
       "get_grid",
       "get_practice_grid",

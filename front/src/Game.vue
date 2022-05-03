@@ -1,5 +1,12 @@
 <template>
   <div id="game">
+    <v-overlay :absolute="true" :value="frozen === true">
+      <div style="width:200px">
+        This grid is now unavailable. Please work on another grid. At a future
+        time, you will receive a message that you may choose to return to this
+        grid.
+      </div>
+    </v-overlay>
     <h4 class="game-state">Number of clicks used in this grid: {{ clicks }}</h4>
 
     <h4 class="game-state">Total number of clicks used: {{ totclicks }}</h4>
@@ -45,6 +52,7 @@ export default {
   },
   data() {
     return {
+      frozen: false,
       fieldSizeDefault: 10,
       fieldSizeMin: 5,
       fieldSizeMax: 50,
@@ -77,6 +85,23 @@ export default {
     this.prepareNewGame();
   },
   watch: {
+    clicks(v) {
+      const g = this.mygrid;
+      if (g.freezable) {
+        if (v >= this.mygrid.freeze_when && !_.has(this.mygrid, "frozen")) {
+          console.debug("we are in");
+          this.freeze_grid(this.id);
+          const that = this;
+          setTimeout(() => {
+            
+            that.unfreeze_grid(this.id);
+
+            that.frozen = false;
+            that.OPEN_UNFROZEN_DIALOG()
+          }, window.freezeSeconds * 1000);
+        }
+      }
+    },
     penalty_for_unmarked(value) {
       this.$emit("onPenaltyForUnmarked", value);
     },
@@ -90,6 +115,12 @@ export default {
           this.totBombsTriggered = bombRevealed.length;
           this.monitorBombs();
         }
+      },
+      deep: true,
+    },
+    mygrid: {
+      handler(newValue, oldValue) {
+        this.frozen = newValue.frozen;
       },
       deep: true,
     },
@@ -114,6 +145,10 @@ export default {
   computed: {
     ...mapState(["totclicks"]),
     ...mapGetters(["clicks_per_grid", "get_grid"]),
+    freezable() {
+      return this.mygrid.freezable;
+    },
+
     numBlownBombs() {
       return _.filter(
         this.bombList,
@@ -177,6 +212,9 @@ export default {
       }
     },
     ...mapMutations({
+      OPEN_UNFROZEN_DIALOG:'OPEN_UNFROZEN_DIALOG',
+      freeze_grid: "FREEZE_GRID",
+      unfreeze_grid: "UNFREEZE_GRID",
       set_grid_param: "SET_GRID_PARAM",
       increase_clicks: "INCREASE_CLICKS",
       increase_my_clicks: "INCREASE_INDIVIDUAL_CLICKS",

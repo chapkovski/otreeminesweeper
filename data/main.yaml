@@ -24,6 +24,9 @@
   bombs: 60
   penalty: 0.11
   recommended_clicks: 95
+  freezable: true
+  freeze_when: 5
+  
 - rows: 18
   columns: 20
   bombs: 60

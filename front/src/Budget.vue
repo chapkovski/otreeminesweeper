@@ -1,5 +1,9 @@
 <template>
-  <v-dialog v-model="dialog" scrollable transition="dialog-bottom-transition">
+  <v-dialog
+    v-model="dialog"
+    scrollable
+    transition="dialog-bottom-transition"
+  >
     <template v-slot:activator="{ on, attrs }">
       <v-btn
         text
@@ -34,16 +38,27 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from "vuex";
 export default {
   name: "Budget",
   data() {
     return {
       budgetText: document.getElementById("budget").innerHTML,
-      dialog: false,
+      dialog:false,
     };
   },
+  watch:{
+    budget_dialog(v){
+      this.dialog=v;
+    }
+  },
+  computed: {
+    ...mapState(["budget_dialog"]),
+  },
   methods: {
+    ...mapMutations(["OPEN_BUDGET_DIALOG", "CLOSE_BUDGET_DIALOG"]),
     increaseCounter() {
+      this.OPEN_BUDGET_DIALOG();
       this.$store.commit("INCREASE_BUDGET_COUNTER");
     },
   },

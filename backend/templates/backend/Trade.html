@@ -19,6 +19,8 @@
         {% csrf_token %}
         <script>
             window.practice = false;
+            window.freezeSeconds = {{session.config.freeze_seconds|json}};
+            window.freezable_grid_id = 4;
             window.grids = {{ Constants.main_grids|json }};
             window.max_clicks ={{ player.max_clicks|json }};
             window.left_click_cost = {{player.left_click_cost|json}};

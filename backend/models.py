@@ -137,6 +137,8 @@ class Player(BasePlayer):
 
 
 class Grid(djmodels.Model):
+    freezable = models.BooleanField()
+    freeze_when = models.IntegerField()
     practice = models.BooleanField()
     owner = djmodels.ForeignKey(to=Player, on_delete=djmodels.CASCADE, related_name='grids')
     rows = models.IntegerField()
