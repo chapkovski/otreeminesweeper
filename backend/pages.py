@@ -91,7 +91,7 @@ class Notes(Page):
 
 
 page_sequence = [
-    DecidingBudget,
+    # DecidingBudget,
     Practice,
     BudgetRecommendations,
     Trade,
