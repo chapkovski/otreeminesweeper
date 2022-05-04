@@ -10,6 +10,10 @@ class Practice(Page):
     live_method = 'register_event'
 
 
+class DecidingBudget(Page):
+    def is_displayed(self):
+        return self.session.config.get('notes', False)
+
 class BudgetRecommendations(Page):
     pass
 
@@ -88,6 +92,7 @@ class Notes(Page):
 
 page_sequence = [
     # Practice,
+    DecidingBudget,
     # BudgetRecommendations,
     Trade,
     # Performance,

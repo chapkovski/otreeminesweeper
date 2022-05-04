@@ -11,7 +11,10 @@ module.exports = {
       entry: "./src/practice.js",
       chunks: ["chunk-vendors"],
     },
-
+    budget: {
+      entry: "./src/budget.js",
+      chunks: ["chunk-vendors"],
+    },
   },
   // Should be STATIC_URL + path/to/build
   publicPath: "/front/",
@@ -30,5 +33,5 @@ module.exports = {
     writeToDisk: true, // Write files to disk in dev mode, so Django can serve the assets
   },
 
-  transpileDependencies: ['vuetify'],
+  transpileDependencies: ["vuetify"],
 };
