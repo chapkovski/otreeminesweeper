@@ -91,11 +91,11 @@ class Notes(Page):
 
 
 page_sequence = [
-    # Practice,
     DecidingBudget,
-    # BudgetRecommendations,
+    Practice,
+    BudgetRecommendations,
     Trade,
-    # Performance,
+    Performance,
     Notes,
 
 ]
