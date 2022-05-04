@@ -46,7 +46,7 @@ def grid_cleaner(g):
 class Constants(BaseConstants):
     name_in_url = 'backend'
     players_per_group = None
-    num_rounds = 1
+    num_rounds = 2
     max_clicks = 10
     endowment = 20
     left_click_cost = 0.01
@@ -94,7 +94,9 @@ class Player(BasePlayer):
     time_for_practice = models.IntegerField()
     left_click_cost = models.FloatField()
     max_clicks = models.IntegerField()
-
+    deviation = models.LongStringField()
+    explanation= models.LongStringField()
+    adjustment= models.LongStringField()
     def get_practice_grids(self):
         return self.get_json_grids(practice=True)
 

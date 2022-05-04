@@ -64,10 +64,33 @@ class Performance(Page):
         return self.session.config.get('performance', False)
 
 
+class Notes(Page):
+    form_model = 'player'
+    form_fields = ['deviation', 'explanation', 'adjustment']
+
+    def vars_for_template(self):
+        public = self.session.config.get('public')
+        labels = dict(
+            deviation='Please write down at least one way you can adjust your gameplay to better achieve the objective for the next set of grids.',
+            adjustment='Please write down at least one way you can adjust your gameplay to better achieve the objective for  the next set of grids.',
+        )
+        if public:
+            labels['explanation'] = 'If so, please explain to your supervisor ' \
+                                    'why you were unable to follow their recommendations.'
+        else:
+            labels['explanation'] = 'If so, were those deviations reasonable given the main objective (explain)? '
+
+        return dict(**labels, public=public)
+
+    def is_displayed(self):
+        return self.session.config.get('notes', False) and self.round_number == 1
+
+
 page_sequence = [
     # Practice,
     # BudgetRecommendations,
     Trade,
-    Performance
+    # Performance,
+    Notes,
 
 ]
