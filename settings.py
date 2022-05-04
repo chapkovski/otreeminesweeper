@@ -1,17 +1,40 @@
 from os import environ
 
+exp_defaults = dict(num_demo_participants=1,
+                    app_sequence=['backend'],
+                    time_for_practice=10,
+                    max_clicks=10,
+                    endowment=20,
+                    left_click_cost=0.01,
+                    freeze_seconds=5)
 SESSION_CONFIGS = [
     dict(
-        name='prototype1',
-        display_name="prototype 1",
-        num_demo_participants=1,
-        app_sequence=['backend'],
-        time_for_practice=10,
-        max_clicks=10,
-        endowment=20,
-        left_click_cost=0.01,
-        freeze_seconds=5
+        name='exp1_1',
+        display_name="experiment 1; condition 1",
+        **exp_defaults
+    ),
+    dict(
+        name='exp1_2',
+        display_name="exp 1-2; AND exp 2-1:  performance measure condition",
+        **exp_defaults,
+        performance=True
+    ),
 
+    dict(
+        name='exp2_2',
+        display_name="exp 2; cond 2;  Note Taking (Private)",
+        **exp_defaults,
+        performance=True,
+        notes=True,
+        public=False,
+    ),
+    dict(
+        name='exp2_3',
+        display_name="exp 2; cond 3;  Note Taking (Public)",
+        **exp_defaults,
+        performance=True,
+        notes=True,
+        public=False,
     ),
 
 ]

@@ -15,8 +15,9 @@
       </v-toolbar>
 
       <v-card-text class="my-3">
-        Grid 5 is available for you to work on it. Would you like to return to
-        that previous grid?
+        Grid 5 is available for you to work on it. You have used
+        {{ num_frozen_clicks() }} clicks on that grid. Would you like to return
+        to that previous grid?
       </v-card-text>
       <v-card-actions>
         <v-btn @click="openGrid()">Yes</v-btn>
@@ -28,7 +29,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapState, mapMutations, mapGetters } from "vuex";
 export default {
   name: "UnfrozenDialog",
   data() {
@@ -43,6 +44,7 @@ export default {
   },
   computed: {
     ...mapState(["unfrozen_dialog"]),
+    ...mapGetters(["num_frozen_clicks"]),
   },
   methods: {
     ...mapMutations([

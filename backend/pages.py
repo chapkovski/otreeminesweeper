@@ -50,8 +50,8 @@ class Results(Page):
 
 
 page_sequence = [
-    Practice,
-    BudgetRecommendations,
+    # Practice,
+    # BudgetRecommendations,
     Trade,
     Results
 

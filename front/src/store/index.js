@@ -5,7 +5,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    grid_dialog_open_id:null,
+    grid_dialog_open_id: null,
     unfrozen_dialog: false,
     budget_dialog: false,
     budget_counter: 0,
@@ -21,6 +21,10 @@ export default new Vuex.Store({
   getters: {
     allGridsDone: (state) => () => {
       return _.every(state.grids, (i) => i.done);
+    },
+    num_frozen_clicks: ({ freezable_grid_id, grids }) => () => {
+      const grid = grids[freezable_grid_id];
+      return grid.used_clicks;
     },
     limitExhausted: (state) => () => {
       return state.totclicks >= state.max_clicks;
