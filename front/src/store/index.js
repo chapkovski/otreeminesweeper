@@ -17,6 +17,7 @@ export default new Vuex.Store({
     totclicks: 0,
     grids: window.grids,
     practice: window.practice,
+    notes: window.notes || false,
   },
   getters: {
     allGridsDone: (state) => () => {
@@ -67,6 +68,9 @@ export default new Vuex.Store({
   mutations: {
     SET_NUM_BLOWN_BOMBS(state, { grid_id, value }) {
       state.grids[grid_id].bombs_blown = value;
+    },
+    SET_NOTE(state, { grid_id, noteText }) {
+      state.grids[grid_id].note = noteText;
     },
     SET_NUM_UNMARKED_BOMBS(state, { grid_id, value }) {
       state.grids[grid_id].bombs_non_revealed = value;

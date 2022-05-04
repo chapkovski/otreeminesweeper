@@ -34,7 +34,7 @@ SESSION_CONFIGS = [
         **exp_defaults,
         performance=True,
         notes=True,
-        public=False,
+        public=True,
     ),
 
 ]

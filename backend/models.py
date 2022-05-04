@@ -16,7 +16,7 @@ import math
 import yaml
 import json
 from pprint import pprint
-
+from django.utils.safestring import mark_safe
 author = 'Philipp Chapkovski, Ph.D. chapkovski@gmail.com'
 
 doc = """
@@ -152,3 +152,13 @@ class Grid(djmodels.Model):
     used_clicks = models.IntegerField(initial=0)
     clicks80 = models.IntegerField(initial=0)
     clicks100 = models.IntegerField(initial=0)
+    note = models.LongStringField()
+    def efficiency(self):
+        if not self.recommended_clicks or self.recommended_clicks==0:
+            return
+        diff = int((self.used_clicks/self.recommended_clicks-1)*100)
+        absdiff = abs(diff)
+        if diff>0:
+            return mark_safe(f'<red>You were {absdiff} percent over budget!</red>')
+        else:
+            return mark_safe(f'<green>You were {absdiff} percent under budget!</green>')

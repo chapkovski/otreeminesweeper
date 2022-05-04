@@ -1,0 +1,63 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Results
+{% endblock %}
+
+{% block content %}
+    <style>
+        red {
+            color: red
+        }
+
+        green {
+            color: green
+        }
+    </style>
+
+    <div class="card my-3" id="budget">
+        <div class="card-body">
+            <div class="my-3 card-text">
+                Your supervisor measured how well you stayed under the budget and the results for this measure are in
+                the table.
+
+
+            </div>
+            <div class="my-3 card-text">
+                Please think about how you can adjust your gameplay for the next set of grids to better achieve the main
+                objective.
+            </div>
+        </div>
+    </div>
+    <div class="card my-3" id="budget">
+        <div class="card-body">
+
+            <table class="table table-hover table-stripped">
+                <thead>
+                <tr>
+                    <th>Grid #</th>
+                    <th>Recommended Clicks</th>
+                    <th>Clicks used</th>
+                    <th>Clicks Efficiency Measure
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                {% autoescape on %}
+                    {% for g in player.get_reversed_grids %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ g.recommended_clicks }}</td>
+                            <td>{{ g.used_clicks }}</td>
+                            <td>{{ g.efficiency }}</td>
+
+                        </tr>
+                    {% endfor %}
+                {% endautoescape %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% next_button %}
+{% endblock %}

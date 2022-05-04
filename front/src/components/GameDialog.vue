@@ -29,6 +29,16 @@
               @onPenaltyForUnmarked="onPenaltyForUnmarked"
             ></minesweeper-game>
           </v-col>
+          <v-col v-if="$store.state.notes">
+            <v-card class="my-3">
+              <v-card-text>
+                <div>
+                  {{ notes_message }}
+                </div>
+                <v-textarea outlined @input="processNote"></v-textarea>
+              </v-card-text>
+            </v-card>
+          </v-col>
           <v-col v-if="practice">
             <v-card class="my-3">
               <v-card-title>Info:</v-card-title>
@@ -88,7 +98,7 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from "vuex";
+import { mapGetters, mapMutations, mapState } from "vuex";
 export default {
   props: {
     dialog_open: { type: Boolean, default: false },
@@ -110,6 +120,7 @@ export default {
   },
   data: (instance) => ({
     dialog: instance.dialog_open,
+    notes_message: window.notes_message,
   }),
   watch: {
     grid_dialog_open_id(v) {
@@ -133,8 +144,13 @@ export default {
     },
   },
   methods: {
+    ...mapMutations({setNote:'SET_NOTE'}),
     onPenaltyForUnmarked(value) {
       this.penalty_for_unmarked = value;
+    },
+    processNote(v) {
+      this.setNote({noteText:v, grid_id:this.id})
+      
     },
   },
 };
