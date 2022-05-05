@@ -47,8 +47,8 @@
               <draggable v-model="grids" tag="tbody">
                 <tr v-for="(item, ind) in grids" :key="ind">
                   <td scope="row">{{ item.number }}</td>
-                  <td>{{ item.number }}</td>
-                  <td>{{ item.potential_loss }}</td>
+                  <td>${{ item.penalty }}</td>
+                  <td>${{ item.potential_loss }}</td>
                   <td>
                     <v-text-field
                       v-model.number="item.clicks"
@@ -75,7 +75,7 @@
         rounded
         large
         :disabled="total_clicks != max_clicks"
-        v-if="total_clicks == max_clicks"
+        v-if="total_clicks <= max_clicks && allNumbers"
       >
         Next
       </v-btn>
@@ -103,6 +103,10 @@ export default {
   computed: {
     total_clicks() {
       return _.sumBy(this.grids, _.property("clicks"));
+    },
+    allNumbers() {
+      const clicks = _.map(this.grids, (i) => _.isNumber(i.clicks));
+      return _.every(clicks, Boolean);
     },
   },
 };
