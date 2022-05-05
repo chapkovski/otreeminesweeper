@@ -1,5 +1,8 @@
 <template>
   <v-app>
+    <div class="form-data" v-show="false">
+      <input type="hidden" name="grid_info" :value="jsonData" />
+    </div>
     <v-navigation-drawer permanent app>
       <v-list>
         <v-list-item>
@@ -76,7 +79,6 @@
         elevation="2"
         rounded
         large
-        :disabled="allowProceeding"
         v-if="allowProceeding"
       >
         Next
@@ -89,9 +91,6 @@
 import _ from "lodash";
 import draggable from "vuedraggable";
 export default {
-  name: "table-example",
-  display: "Table",
-  order: 8,
   components: {
     draggable,
   },
@@ -103,6 +102,9 @@ export default {
     };
   },
   computed: {
+    jsonData() {
+      return JSON.stringify(this.grids);
+    },
     total_clicks() {
       return _.sumBy(this.grids, _.property("clicks"));
     },
@@ -111,7 +113,7 @@ export default {
       return _.every(clicks, Boolean);
     },
     allowProceeding() {
-      return total_clicks <= max_clicks && allNumbers;
+      return this.total_clicks <= this.max_clicks && this.allNumbers;
     },
   },
 };

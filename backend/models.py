@@ -17,6 +17,7 @@ import yaml
 import json
 from pprint import pprint
 from django.utils.safestring import mark_safe
+
 author = 'Philipp Chapkovski, Ph.D. chapkovski@gmail.com'
 
 doc = """
@@ -95,8 +96,9 @@ class Player(BasePlayer):
     left_click_cost = models.FloatField()
     max_clicks = models.IntegerField()
     deviation = models.LongStringField()
-    explanation= models.LongStringField()
-    adjustment= models.LongStringField()
+    explanation = models.LongStringField()
+    adjustment = models.LongStringField()
+
     def get_practice_grids(self):
         return self.get_json_grids(practice=True)
 
@@ -104,12 +106,14 @@ class Player(BasePlayer):
         return self.get_json_grids(practice=False)
 
     def get_json_grids(self, practice=False):
-        res = self.grids.filter(practice=practice).values()
+        res = self.grids.filter(practice=practice).order_by('number').values()
         b80 = lambda x: math.ceil(x.get('bombs') * 0.8)
-        res = [{**i, 'bombs80': b80(i), **addendum, 'bombs_non_revealed':i.get('bombs')} for i in res]
+        res = [{**i, 'bombs80': b80(i), **addendum, 'bombs_non_revealed': i.get('bombs')} for i in res]
         return res
 
     def get_reversed_grids(self):
+        if self.session.config.get('notes'):
+            self.grids.filter(practice=False).order_by('number')
         return self.grids.filter(practice=False).order_by('-number')
 
     def register_event(self, data):
@@ -155,12 +159,13 @@ class Grid(djmodels.Model):
     clicks80 = models.IntegerField(initial=0)
     clicks100 = models.IntegerField(initial=0)
     note = models.LongStringField()
+
     def efficiency(self):
-        if not self.recommended_clicks or self.recommended_clicks==0:
+        if not self.recommended_clicks or self.recommended_clicks == 0:
             return
-        diff = int((self.used_clicks/self.recommended_clicks-1)*100)
+        diff = int((self.used_clicks / self.recommended_clicks - 1) * 100)
         absdiff = abs(diff)
-        if diff>0:
+        if diff > 0:
             return mark_safe(f'<red>You were {absdiff} percent over budget!</red>')
         else:
             return mark_safe(f'<green>You were {absdiff} percent under budget!</green>')

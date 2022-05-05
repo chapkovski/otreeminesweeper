@@ -13,7 +13,15 @@ class Practice(Page):
 class DecidingBudget(Page):
     def is_displayed(self):
         return self.session.config.get('notes', False)
-
+    def post(self):
+        raw_info = self.request.POST.dict().get('grid_info')
+        info = json.loads(raw_info)
+        for i, j in enumerate(info,start=1):
+            g = Grid.objects.get(id=j.get('id'))
+            g.number=i
+            g.recommended_clicks = j.get('clicks')
+            g.save()
+        return super().post()
 class BudgetRecommendations(Page):
     pass
 
@@ -91,11 +99,11 @@ class Notes(Page):
 
 
 page_sequence = [
-    # Practice,
+    Practice,
     DecidingBudget,
-    # BudgetRecommendations,
-    # Trade,
-    # Performance,
-    # Notes,
+    BudgetRecommendations,
+    Trade,
+    Performance,
+    Notes,
 
 ]
