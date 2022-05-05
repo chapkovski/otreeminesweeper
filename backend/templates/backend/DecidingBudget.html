@@ -18,16 +18,10 @@
     <form action='' method="post" role="form" id="form" autocomplete="off">
         {% csrf_token %}
         <script>
-            window.practice = false;
-            window.notes = {{notes|json}};
-            window.notes_message = {{notes_message|json}};
-            window.freezeSeconds = {{session.config.freeze_seconds|json}};
-            window.freezable_grid_id = 4;
+            window.max_clicks = {{ player.max_clicks|json }};
             window.grids = {{ player.get_main_grids|json }};
-            window.max_clicks ={{ player.max_clicks|json }};
-            window.left_click_cost = {{player.left_click_cost|json}};
         </script>
-        <div class="d-none">{% include 'backend/includes/budget_recs.html' %}</div>
+
         <link
                 rel="stylesheet"
                 href="https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css"
