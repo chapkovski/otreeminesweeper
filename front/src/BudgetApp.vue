@@ -38,6 +38,7 @@
             <table class="table table-sm table-striped">
               <thead class="thead-dark">
                 <tr>
+                  <th></th>
                   <th scope="col">Grid number</th>
                   <th scope="col">Penalty per bomb</th>
                   <th scope="col">Potential Financial Loss</th>
@@ -46,6 +47,7 @@
               </thead>
               <draggable v-model="grids" tag="tbody">
                 <tr v-for="(item, ind) in grids" :key="ind">
+                  <td><v-icon>mdi-drag-horizontal</v-icon></td>
                   <td scope="row">{{ item.number }}</td>
                   <td>${{ item.penalty }}</td>
                   <td>${{ item.potential_loss }}</td>
@@ -113,6 +115,9 @@ export default {
 </script>
 
 <style scoped>
+tr * {
+  cursor: all-scroll !important;
+}
 .nextbtn {
   -webkit-text-size-adjust: 100%;
   word-break: normal;
