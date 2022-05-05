@@ -76,8 +76,8 @@
         elevation="2"
         rounded
         large
-        :disabled="total_clicks != max_clicks"
-        v-if="total_clicks <= max_clicks && allNumbers"
+        :disabled="allowProceeding"
+        v-if="allowProceeding"
       >
         Next
       </v-btn>
@@ -109,6 +109,9 @@ export default {
     allNumbers() {
       const clicks = _.map(this.grids, (i) => _.isNumber(i.clicks));
       return _.every(clicks, Boolean);
+    },
+    allowProceeding() {
+      return total_clicks <= max_clicks && allNumbers;
     },
   },
 };
