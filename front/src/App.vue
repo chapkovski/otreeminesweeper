@@ -3,9 +3,22 @@
     <v-app>
       <unfrozen-dialog></unfrozen-dialog>
       <v-app-bar app>
+        <v-sheet
+          outlined
+          class="d-flex align-center ml-1 pa-2 rounded-pill mr-3 "
+        >
+          <div class="d-flex align-center  ">
+            Round:
+            <div
+              class="ml-1 pa-2 primary   white--text text-no-wrap rounded-pill"
+            >
+              {{round_number}}
+            </div>
+          </div>
+        </v-sheet>
         <div v-if="limitExhausted()">
           <v-alert type="danger" color="red"
-            >You exhausted number of allowed clicks</v-alert
+            >You exhausted all your left clicks for the period</v-alert
           >
         </div>
 
@@ -75,7 +88,7 @@
                       <tbody>
                         <tr v-for="(grid, i) in grids" :key="i">
                           <td>{{ i + 1 }}</td>
-                          <td>${{ grid.penalty }}</td>
+                          <td>${{ grid.potential_loss }}</td>
 
                           <td>{{ grid.used_clicks }}</td>
                           <td>
@@ -85,7 +98,6 @@
                               :id="i"
                             ></game-dialog>
                           </td>
-                          
                         </tr>
                       </tbody>
                     </template>
@@ -123,7 +135,7 @@ export default {
   name: "app",
   components: { Budget, UnfrozenDialog },
   data() {
-    return {};
+    return {round_number:window.round_number};
   },
   computed: {
     ...mapState(["totclicks", "grids", "budget_counter"]),

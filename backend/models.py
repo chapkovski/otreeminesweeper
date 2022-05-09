@@ -88,6 +88,8 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
+    ego_priority = models.StringField()
+    ego_click_stop= models.StringField()
     total_clicks = models.IntegerField()
     budget_counter = models.IntegerField(initial=0)
     total_penalty = djmodels.DecimalField(null=True, decimal_places=2, max_digits=10)
@@ -159,6 +161,8 @@ class Grid(djmodels.Model):
     clicks80 = models.IntegerField(initial=0)
     clicks100 = models.IntegerField(initial=0)
     note = models.LongStringField()
+    ego_number = models.IntegerField()
+    ego_clicks = models.IntegerField()
 
     def efficiency(self):
         if not self.recommended_clicks or self.recommended_clicks == 0:

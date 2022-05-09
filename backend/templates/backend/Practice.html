@@ -19,6 +19,7 @@
     <form action='' method="post" role="form" id="form" autocomplete="off">
         {% csrf_token %}
         <script>
+        window.round_number={{ player.round_number|json }};
             window.grids =  {{ player.get_practice_grids|json }};
             window.practice = true;
             window.time_for_practice = {{player.time_for_practice|json}};

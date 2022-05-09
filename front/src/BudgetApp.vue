@@ -14,13 +14,24 @@
         <v-list-item>
           <v-list-item-content>
             I will prioritize working on grids by
-            <v-text-field hide-details single-line type="text" />
+            <v-text-field
+              hide-details
+              single-line
+              type="text"
+              v-model="ego_priority"
+              name="ego_priority"
+            />
           </v-list-item-content>
         </v-list-item>
         <v-list-item>
           <v-list-item-content>
             I will stop clicking on a grid when I have
-            <v-text-field hide-details type="text" />
+            <v-text-field
+              hide-details
+              type="text"
+              name="ego_click_stop"
+              v-model="ego_click_stop"
+            />
           </v-list-item-content>
         </v-list-item>
         <v-list-item>
@@ -96,6 +107,8 @@ export default {
   },
   data() {
     return {
+      ego_click_stop:'',
+      ego_priority:'',
       max_clicks: window.max_clicks,
       grids: window.grids,
       dragging: false,
@@ -113,7 +126,7 @@ export default {
       return _.every(clicks, Boolean);
     },
     allowProceeding() {
-      return this.total_clicks <= this.max_clicks && this.allNumbers;
+      return this.total_clicks <= this.max_clicks && this.allNumbers && this.ego_click_stop.length>0 && this.ego_priority.length>0;
     },
   },
 };

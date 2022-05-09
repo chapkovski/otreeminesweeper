@@ -18,6 +18,7 @@
     <form action='' method="post" role="form" id="form" autocomplete="off">
         {% csrf_token %}
         <script>
+        window.round_number={{ player.round_number|json }};
             window.practice = false;
             window.notes = {{notes|json}};
             window.notes_message = {{notes_message|json}};

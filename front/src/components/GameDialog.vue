@@ -46,15 +46,15 @@
                 <v-list>
                   <v-list-item-group>
                     <v-list-item
-                      >Number of left clicks:
+                      >Left clicks used:
                       <div class="ml-auto">{{ mygrid.used_clicks }}</div>
                     </v-list-item>
                     <v-list-item
-                      >Number of right clicks:
+                      >Right clicks used:
                       <div class="ml-auto">{{ mygrid.right_clicks }}</div>
                     </v-list-item>
                     <v-list-item
-                      >Cost of left clicks:
+                      >Cost of each left click:
                       <div class="ml-auto">
                         ${{ $store.state.left_click_cost }}
                       </div>
@@ -72,7 +72,7 @@
                       </div></v-list-item
                     >
                     <v-list-item
-                      >Benefit for work on grid:
+                      >Current earnings for grid grid:
                       <div class="ml-auto">
                         ${{ benefit_for_work(this.id).toFixed(2) }}
                       </div>
@@ -144,13 +144,12 @@ export default {
     },
   },
   methods: {
-    ...mapMutations({setNote:'SET_NOTE'}),
+    ...mapMutations({ setNote: "SET_NOTE" }),
     onPenaltyForUnmarked(value) {
       this.penalty_for_unmarked = value;
     },
     processNote(v) {
-      this.setNote({noteText:v, grid_id:this.id})
-      
+      this.setNote({ noteText: v, grid_id: this.id });
     },
   },
 };

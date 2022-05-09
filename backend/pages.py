@@ -7,6 +7,8 @@ from django.db.models import Sum
 
 
 class Practice(Page):
+    def is_displayed(self):
+        return self.round_number==1
     live_method = 'register_event'
 
 
@@ -14,12 +16,15 @@ class DecidingBudget(Page):
     def is_displayed(self):
         return self.session.config.get('notes', False)
     def post(self):
+
+        self.player.ego_priority=self.request.POST.dict().get('ego_priority')
+        self.player.ego_click_stop=self.request.POST.dict().get('ego_click_stop')
         raw_info = self.request.POST.dict().get('grid_info')
         info = json.loads(raw_info)
         for i, j in enumerate(info,start=1):
             g = Grid.objects.get(id=j.get('id'))
-            g.number=i
-            g.recommended_clicks = j.get('clicks')
+            g.ego_number=i
+            g.ego_clicks = j.get('clicks')
             g.save()
         return super().post()
 class BudgetRecommendations(Page):
@@ -83,7 +88,7 @@ class Notes(Page):
     def vars_for_template(self):
         public = self.session.config.get('public')
         labels = dict(
-            deviation='Please write down at least one way you can adjust your gameplay to better achieve the objective for the next set of grids.',
+            deviation='Did you deviate from the recommended budget and which grids?',
             adjustment='Please write down at least one way you can adjust your gameplay to better achieve the objective for  the next set of grids.',
         )
         if public:
@@ -99,9 +104,9 @@ class Notes(Page):
 
 
 page_sequence = [
-    Practice,
+    # Practice,
     DecidingBudget,
-    BudgetRecommendations,
+    # BudgetRecommendations,
     Trade,
     Performance,
     Notes,
