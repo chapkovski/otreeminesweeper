@@ -76,6 +76,10 @@ class Trade(Page):
         self.player.set_payoff()
 
 
+class Results(Page):
+    pass
+
+
 class Performance(Page):
     def is_displayed(self):
         return self.session.config.get('performance', False)
@@ -108,6 +112,7 @@ page_sequence = [
     DecidingBudget,
     # BudgetRecommendations,
     Trade,
+    Results,
     Performance,
     Notes,
 
