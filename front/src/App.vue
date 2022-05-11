@@ -39,6 +39,7 @@
         <div class="form-data" v-show="false">
           <input type="hidden" name="total_clicks" :value="totclicks" />
           <input type="hidden" name="budget_counter" :value="budget_counter" />
+          <input type="hidden" name="return_to_frozen" :value="return_to_frozen" />
           <div v-for="(grid, ind) in grids" :key="ind">
             <input
               type="hidden"
@@ -138,7 +139,7 @@ export default {
     return {round_number:window.round_number};
   },
   computed: {
-    ...mapState(["totclicks", "grids", "budget_counter"]),
+    ...mapState(["totclicks", "grids", "budget_counter",'return_to_frozen']),
     ...mapGetters(["allGridsDone", "limitExhausted", "total_penalty"]),
   },
   methods: {},

@@ -7,11 +7,8 @@
         grid.
       </div>
     </v-overlay>
-    <h4 class="game-state">Number of clicks used in this grid: {{ clicks }}</h4>
 
-    <h4 class="game-state">Total number of clicks used: {{ totclicks }}</h4>
-
-    <p v-if="$store.state.practice">{{ bombStateText }}</p>
+    <p v-if="false">{{ bombStateText }}</p>
 
     <minesweeper-field
       :minefield="minefield"
@@ -93,11 +90,10 @@ export default {
           this.freeze_grid(this.id);
           const that = this;
           setTimeout(() => {
-            
             that.unfreeze_grid(this.id);
 
             that.frozen = false;
-            that.OPEN_UNFROZEN_DIALOG()
+            that.OPEN_UNFROZEN_DIALOG();
           }, window.freezeSeconds * 1000);
         }
       }
@@ -125,6 +121,7 @@ export default {
       deep: true,
     },
     amountOfCellsMarked(value) {
+      this.setFlags({ grid_id: this.id, value });
       this.monitorBombs();
     },
     numBlownBombs(val) {
@@ -212,7 +209,8 @@ export default {
       }
     },
     ...mapMutations({
-      OPEN_UNFROZEN_DIALOG:'OPEN_UNFROZEN_DIALOG',
+      setFlags: "SET_FLAGS",
+      OPEN_UNFROZEN_DIALOG: "OPEN_UNFROZEN_DIALOG",
       freeze_grid: "FREEZE_GRID",
       unfreeze_grid: "UNFREEZE_GRID",
       set_grid_param: "SET_GRID_PARAM",

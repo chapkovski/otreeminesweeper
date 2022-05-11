@@ -17,7 +17,7 @@ class PandasExport(View):
 
     def get(self, request, *args, **kwargs):
         grids = Grid.objects.filter(clicks80__isnull=False).values('owner__participant__code', 'owner__session__code', 'owner__round_number',
-                                          'number', 'used_clicks', 'clicks80', 'clicks100')
+                                          'number', 'used_clicks', 'clicks80', 'clicks100', 'ego_clicks', 'ego_number')
         df = pd.DataFrame(data=grids)
         if df is not None and not df.empty:
             timestamp = timezone.now()

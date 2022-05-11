@@ -52,8 +52,10 @@ export default {
       "CLOSE_BUDGET_DIALOG",
       "OPEN_FROZEN_GRID",
       "SET_OPEN_GRID",
+      'SET_RETURN_TO_FROZEN'
     ]),
     openGrid() {
+      this.SET_RETURN_TO_FROZEN()
       this.SET_OPEN_GRID(window.freezable_grid_id);
 
       this.dialog = false;

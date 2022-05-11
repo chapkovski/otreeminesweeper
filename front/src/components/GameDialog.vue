@@ -13,9 +13,19 @@
     </template>
 
     <v-card>
-      <v-card-title class="text-h5 grey lighten-2">
-        Grid {{ id + 1 }}
-      </v-card-title>
+        <v-toolbar >
+        <v-btn icon dark @click="dialog = false">
+          <v-icon>mdi-close</v-icon>
+        </v-btn>
+        <v-toolbar-title> Grid {{ id + 1 }}</v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-toolbar-items>
+          <v-btn dark text @click="dialog = false">
+            Close
+          </v-btn>
+        </v-toolbar-items>
+      </v-toolbar>
+     
 
       <v-card-text>
         <v-row>
@@ -39,44 +49,63 @@
               </v-card-text>
             </v-card>
           </v-col>
-          <v-col v-if="practice">
+          <v-col>
             <v-card class="my-3">
               <v-card-title>Info:</v-card-title>
               <v-card-text>
-                <v-list>
+                <v-list dense>
                   <v-list-item-group>
-                    <v-list-item
-                      >Left clicks used:
+                    <v-list-item>
+                      Number of clicks used in this grid:
                       <div class="ml-auto">{{ mygrid.used_clicks }}</div>
                     </v-list-item>
-                    <v-list-item
-                      >Right clicks used:
-                      <div class="ml-auto">{{ mygrid.right_clicks }}</div>
+                    <v-list-item>
+                      Total number of clicks used:
+                      <div class="ml-auto">{{ totclicks }}</div>
                     </v-list-item>
                     <v-list-item
-                      >Cost of each left click:
-                      <div class="ml-auto">
-                        ${{ $store.state.left_click_cost }}
-                      </div>
+                      >Flag counter:
+                      <div class="ml-auto">{{ mygrid.flags }}</div>
                     </v-list-item>
                     <v-list-item
-                      >Penalty for accidental bombs:
-                      <div class="ml-auto">
-                        $ {{ penalty_for_blown_up(this.id).toFixed(2) }}
-                      </div>
+                      >Bombs accidently opened:
+                      <div class="ml-auto">{{ mygrid.bombs_blown }}</div>
                     </v-list-item>
-                    <v-list-item
-                      >Penalty for remaining unmarked bombs:
-                      <div class="ml-auto">
-                        ${{ penalty_for_unmarked(this.id).toFixed(2) }}
-                      </div></v-list-item
-                    >
-                    <v-list-item
-                      >Current earnings for grid grid:
-                      <div class="ml-auto">
-                        ${{ benefit_for_work(this.id).toFixed(2) }}
-                      </div>
-                    </v-list-item>
+
+                    <div v-if="practice">
+                      <v-list-item
+                        >Left clicks used:
+                        <div class="ml-auto">{{ mygrid.used_clicks }}</div>
+                      </v-list-item>
+                      <v-list-item
+                        >Right clicks used:
+                        <div class="ml-auto">{{ mygrid.right_clicks }}</div>
+                      </v-list-item>
+                      <v-list-item
+                        >Cost of each left click:
+                        <div class="ml-auto">
+                          ${{ $store.state.left_click_cost }}
+                        </div>
+                      </v-list-item>
+                      <v-list-item
+                        >Penalty for accidental bombs:
+                        <div class="ml-auto">
+                          $ {{ penalty_for_blown_up(this.id).toFixed(2) }}
+                        </div>
+                      </v-list-item>
+                      <v-list-item
+                        >Penalty for remaining unmarked bombs:
+                        <div class="ml-auto">
+                          ${{ penalty_for_unmarked(this.id).toFixed(2) }}
+                        </div></v-list-item
+                      >
+                      <v-list-item
+                        >Current earnings for grid:
+                        <div class="ml-auto">
+                          ${{ benefit_for_work(this.id).toFixed(2) }}
+                        </div>
+                      </v-list-item>
+                    </div>
                   </v-list-item-group>
                 </v-list>
               </v-card-text>
@@ -128,7 +157,7 @@ export default {
     },
   },
   computed: {
-    ...mapState(["grid_dialog_open_id"]),
+    ...mapState(["grid_dialog_open_id", "totclicks"]),
     ...mapGetters([
       "get_grid",
       "get_practice_grid",

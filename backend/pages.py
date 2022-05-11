@@ -8,25 +8,28 @@ from django.db.models import Sum
 
 class Practice(Page):
     def is_displayed(self):
-        return self.round_number==1
+        return self.round_number == 1
+
     live_method = 'register_event'
 
 
 class DecidingBudget(Page):
     def is_displayed(self):
         return self.session.config.get('notes', False)
-    def post(self):
 
-        self.player.ego_priority=self.request.POST.dict().get('ego_priority')
-        self.player.ego_click_stop=self.request.POST.dict().get('ego_click_stop')
+    def post(self):
+        self.player.ego_priority = self.request.POST.dict().get('ego_priority')
+        self.player.ego_click_stop = self.request.POST.dict().get('ego_click_stop')
         raw_info = self.request.POST.dict().get('grid_info')
         info = json.loads(raw_info)
-        for i, j in enumerate(info,start=1):
+        for i, j in enumerate(info, start=1):
             g = Grid.objects.get(id=j.get('id'))
-            g.ego_number=i
+            g.ego_number = i
             g.ego_clicks = j.get('clicks')
             g.save()
         return super().post()
+
+
 class BudgetRecommendations(Page):
     pass
 
@@ -47,13 +50,16 @@ class Trade(Page):
         return dict(notes=notes, notes_message=notes_message)
 
     def post(self):
-        print(self.request.POST)
+
         data = self.request.POST.dict()
+        print(data)
         if data:
             data = {k: v for k, v in data.items() if v != '' and k != 'csrfmiddlewaretoken'}
             total_clicks = data.get('total_clicks', None)
             if total_clicks:
                 self.player.total_clicks = int(total_clicks)
+
+            self.player.return_to_frozen = data.get('return_to_frozen') == 'true'
 
             budget_counter = data.get('budget_counter', None)
             if budget_counter:

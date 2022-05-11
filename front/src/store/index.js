@@ -5,6 +5,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    return_to_frozen: false,
     grid_dialog_open_id: null,
     unfrozen_dialog: false,
     budget_dialog: false,
@@ -66,6 +67,15 @@ export default new Vuex.Store({
     },
   },
   mutations: {
+    SET_RETURN_TO_FROZEN(state) {
+      state.return_to_frozen = true;
+    },
+    SET_FLAGS(state, { grid_id, value }) {
+      state.grids[grid_id].flags = value;
+    },
+    SET_NUM_BLOWN_BOMBS(state, { grid_id, value }) {
+      state.grids[grid_id].bombs_blown = value;
+    },
     SET_NUM_BLOWN_BOMBS(state, { grid_id, value }) {
       state.grids[grid_id].bombs_blown = value;
     },

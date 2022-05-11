@@ -13,7 +13,7 @@
             <div class="my-3 card-text">
                 Here are the notes you took during period 1.
                 {% if public %}
-                Your supervisor will review these notes.
+                    Your supervisor will review these notes.
                 {% endif %}
                 Please refer to them to answer the following questions
                 (keep responses 1-2 sentences).
@@ -21,15 +21,30 @@
 
             </div>
 
-            <ul class="list-group list-group-flush">
-
-                {% for g in player.get_main_grids %}
-                    {% if g.note %}
-                        <li class="list-group-item">
-                            <i>Note for grid #{{ g.number }}:</i> {{ g.note }}
-                        </li>
-                    {% endif %}
+            <table class="table table-stripped table-hover">
+            <thead>
+            <tr>
+                <th>Grid #:</th>
+                <th>Your note:</th>
+                <th>Clicks Efficiency Measure:</th>
+            </tr>
+            </thead>
+                <tbody>
+                {% for g in player.get_reversed_grids %}
+                    <tr>
+                        <td>
+                            {{ g.number }}
+                        </td>
+                        <td>
+                            {{ g.note }}
+                        </td>
+                        <td>
+                            {{ g.efficiency }}
+                        </td>
+                    </tr>
                 {% endfor %}
+                </tbody>
+            </table>
 
 
             </ul>
@@ -40,8 +55,8 @@
         <div class="card-body">
 
             {% formfield player.deviation label=deviation %}
-            {% formfield player.explanation  label=explanation %}
-            {% formfield player.adjustment  label=adjustment %}
+            {% formfield player.explanation label=explanation %}
+            {% formfield player.adjustment label=adjustment %}
         </div>
     </div>
     {% next_button %}

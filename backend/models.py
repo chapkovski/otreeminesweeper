@@ -88,6 +88,7 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
+
     ego_priority = models.StringField()
     ego_click_stop= models.StringField()
     total_clicks = models.IntegerField()
@@ -100,6 +101,7 @@ class Player(BasePlayer):
     deviation = models.LongStringField()
     explanation = models.LongStringField()
     adjustment = models.LongStringField()
+    return_to_frozen = models.BooleanField()
 
     def get_practice_grids(self):
         return self.get_json_grids(practice=True)
@@ -145,6 +147,7 @@ class Player(BasePlayer):
 
 
 class Grid(djmodels.Model):
+    flags = models.IntegerField(initial=0)
     freezable = models.BooleanField()
     freeze_when = models.IntegerField()
     practice = models.BooleanField()
