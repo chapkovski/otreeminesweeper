@@ -134,7 +134,7 @@ class Notes(Page):
 
 page_sequence = [
     Instructions,
-    Intructions2,
+    Instructions2,
     Instructions3,
     Instructions4,
     Instructions5,

@@ -174,19 +174,19 @@ class Player(BasePlayer):
     def get_clicks_fine(self):
         return self.total_clicks * Constants.left_click_cost
 
-    def q1_error_message(player, q1):
+    def q1_error_message(self, q1):
         if q1 != 3:
             return 'Wrong answer, Please try again'
 
-    def q2_error_message(player, q2):
+    def q2_error_message(self, q2):
         if q2 != 1:
             return 'Wrong answer, Please try again'
 
-    def q3_error_message(player, q3):
+    def q3_error_message(self, q3):
         if q3 != 1:
             return 'The correct answer is cost of $0.01 since you already found 80 percent of the bombs, please resubmit the correct answer'
 
-    def q4_error_message(player, q4):
+    def q4_error_message(self, q4):
         if q4 != 3:
             return 'The correct answer is the 10th bomb, $0.80/.08 = 10 bombs, please resubmit the correct answer'
 
