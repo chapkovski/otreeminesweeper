@@ -6,6 +6,25 @@ from pprint import pprint
 from django.db.models import Sum
 
 
+class PageInherit(Page):
+    form_model = 'player'
+
+# PAGES
+
+class Instructions(Page):
+    pass
+class Instructions2(Page):
+    pass
+class Instructions3(PageInherit):
+    form_model = 'player'
+    form_fields = ['q1', 'q2']
+class Instructions4(PageInherit):
+    form_model = 'player'
+    form_fields = ['q3' ]
+class Instructions5(PageInherit):
+    form_model = 'player'
+    form_fields = [ 'q4' ]
+
 class Practice(Page):
     def is_displayed(self):
         return self.round_number == 1
@@ -114,6 +133,11 @@ class Notes(Page):
 
 
 page_sequence = [
+    Instructions,
+    Intructions2,
+    Instructions3,
+    Instructions4,
+    Instructions5,
     Practice,
     DecidingBudget,
     BudgetRecommendations,
