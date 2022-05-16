@@ -10,16 +10,7 @@ from django.db.models import Sum
 
 # PAGES
 
-class Instructions(Page):
-    pass
-class Instructions2(Page):
-    pass
-class Instructions3(Page):
-    pass
-class Instructions4(Page):
-   pass
-class Instructions5(Page):
-   pass
+
 
 class Practice(Page):
     def is_displayed(self):
@@ -129,11 +120,6 @@ class Notes(Page):
 
 
 page_sequence = [
-    Instructions,
-    Instructions2,
-    Instructions3,
-    Instructions4,
-    Instructions5,
     Practice,
     DecidingBudget,
     BudgetRecommendations,
