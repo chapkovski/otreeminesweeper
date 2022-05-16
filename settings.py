@@ -1,7 +1,7 @@
 from os import environ
 
 exp_defaults = dict(num_demo_participants=1,
-                    app_sequence=['InstructionsA','backend', 'demographic'],
+                    app_sequence=['backend'],
                     time_for_practice=10,
                     max_clicks=10,
                     endowment=20,
