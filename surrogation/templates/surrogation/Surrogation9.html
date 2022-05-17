@@ -1,0 +1,31 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Question 9
+{% endblock %}
+
+{% block content %}
+
+<b> Scenario A </b> <br>
+Total Bombs: 10 <br>
+Marked Bombs: 8 <br>
+Penalty per unmarked bombs: $0.05 <br>
+Recommended Budget: 20 Clicks <br>
+Clicks Used to Find Bombs ($0.01): 24 Clicks <br>
+Efficiency: 20 Percent <b><i>above</i></b> budget!
+ <br> <br>
+
+<b> Scenario B </b> <br>
+Total Bombs: 10 <br>
+Marked Bombs: 7 <br>
+Penalty per unmarked bombs: $0.05 <br>
+Recommended Budget: 20 Clicks <br>
+Clicks Used to Find Bombs ($0.01): 15 Clicks <br>
+Efficiency: 25 Percent <b><i>below</i></b> budget!
+ <br> <br>
+
+{% formfield player.s9 %}
+ {% next_button %}
+
+{% endblock %}

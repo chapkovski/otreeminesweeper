@@ -1,0 +1,28 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+
+{% block title %}
+  Demographics and Experimental Questions
+{% endblock %}
+{% block content %}
+<br> <p>
+    {% formfield player.gender %}
+    {% formfield player.age %}
+    {% formfield player.education %}
+    {% formfield player.work %}
+    {% formfield player.minesweeper %}
+    {% formfield player.minesweeper2 %}
+    {% formfield player.videogames %}
+    {% formfield player.budgetpressure %}
+    {% formfield player.deviation %}
+    {% formfield player.measure %}
+    {% formfield player.notes %}
+    {% formfield player.notesb %}
+    {% formfield player.notesc %}
+
+</p>
+
+
+      {% next_button %}
+{% endblock %}

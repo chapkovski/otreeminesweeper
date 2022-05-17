@@ -1,0 +1,46 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+   Task 2
+{% endblock %}
+
+{% block content %}
+<p>The objective for Task 2 is identical to Task 1. You will be incentivized for this task and can
+    receive up to $0.90  in additional compensation depending on your performance. <br> <br>
+In Task 2, instead of marking bombs on each grid, you will be shown a series of gameplay scenarios.
+Each gameplay scenario will include information such as the total bombs on a grid,
+total bombs marked by an individual, penalty for each bomb unmarked, clicks used,
+and budget set by the supervisor. For each question, you will be presented 2 gameplay scenarios
+and will be asked to select the scenario that best achieves the main objective from Task 1.
+    You will earn $0.10 each time you select the correct scenario, and you will make a total of 9 selections. <br> <br>
+Note, please assume for each selection you have sufficient left clicks to implement one of the
+    two scenarios but not both scenarios. </p><br> <br>
+
+
+
+<p>
+  <b> <u>Question 1</u> </b>  <br> <br>
+
+<b> Scenario A </b> <br>
+Total Bombs: 10 <br>
+Marked Bombs: 5 <br>
+Penalty per unmarked bombs: $0.05 <br>
+Recommended Budget: 20 Clicks <br>
+Clicks Used to Find Bombs ($0.01): 15 Clicks <br>
+Efficiency: 25 Percent <b><i>below</i></b> budget!
+ <br> <br>
+
+<b> Scenario B </b> <br>
+Total Bombs: 10 <br>
+Marked Bombs: 8 <br>
+Penalty per unmarked bombs: $0.05 <br>
+Recommended Budget: 20 Clicks <br>
+Clicks Used to Find Bombs ($0.01): 25 Clicks <br>
+    Efficiency: 25 Percent <b><i>above</i></b> budget! </p>
+ <br>
+{% formfield player.s1 %}
+
+    {% next_button %}
+
+{% endblock %}
