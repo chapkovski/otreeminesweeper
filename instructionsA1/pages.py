@@ -2,6 +2,8 @@ from otree.api import Currency as c, currency_range
 from ._builtin import Page, WaitPage
 from .models import Constants
 
+class Consent(Page):
+    pass
 
 class Instructions(Page):
     def is_displayed(self):
@@ -33,4 +35,4 @@ class Instructions5(Page):
     form_fields = ['q4']
 
 
-page_sequence = [Instructions, Instructions2, Instructions3, Instructions4, Instructions5]
+page_sequence = [Consent, Instructions, Instructions2, Instructions3, Instructions4, Instructions5]

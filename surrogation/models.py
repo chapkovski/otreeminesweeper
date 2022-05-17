@@ -84,4 +84,4 @@ class Player(BasePlayer):
                                       [2, 'Scenario B'],
                                       ],
                              blank=False,
-                             label='Which scenario is best for achieving the motain objective?')
+                             label='Which scenario is best for achieving the moain objective?')

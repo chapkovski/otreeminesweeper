@@ -32,6 +32,7 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
+    name = models.StringField(min=2, max=60, label='Please type your First and Last name to receive extra credit for participating')
     gender = models.StringField(widget=widgets.RadioSelect, choices=['Female', 'Male'], blank=True)
     age = models.IntegerField(min=15, max=99)
     education = models.IntegerField(min=0, max=20,
