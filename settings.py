@@ -1,7 +1,7 @@
 from os import environ
 
 exp_defaults = dict(num_demo_participants=1,
-                    app_sequence=[ 'backend'],
+                    app_sequence=['instructionsA1','instructionsB1', 'instructionsC1','instructionsD1', 'backend'],
                     time_for_practice=10,
                     max_clicks=10,
                     endowment=20,
@@ -11,13 +11,15 @@ SESSION_CONFIGS = [
     dict(
         name='exp1_1',
         display_name="experiment 1; condition 1",
-        **exp_defaults
+        **exp_defaults,
+        control = True
     ),
     dict(
         name='exp1_2',
         display_name="exp 1-2; AND exp 2-1:  performance measure condition",
         **exp_defaults,
-        performance=True
+        performance=True,
+        condition2=True
     ),
 
     dict(
@@ -26,6 +28,7 @@ SESSION_CONFIGS = [
         **exp_defaults,
         performance=True,
         notes=True,
+        condition3= True,
         public=False,
     ),
     dict(
@@ -34,6 +37,7 @@ SESSION_CONFIGS = [
         **exp_defaults,
         performance=True,
         notes=True,
+        condition4= True,
         public=True,
     ),
 

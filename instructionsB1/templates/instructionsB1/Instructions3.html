@@ -36,6 +36,15 @@ This task will last for 2 periods, and you will have the opportunity to <i>mark 
     similar size and <i>bomb</i> numbers, the location of the <i>bombs</i> will differ). Compensation is still based on the overall
     objective of prioritizing <i>grids</i> of greater concern and efficiently <i>marking</i> a sufficient number of <i>bombs</i> within them.   </p>
 <br>
+<p><u>Performance Measure</u> <br>
+     <b>Your supervisor will measure the degree to which you stay under the recommended budgeted number of
+         clicks for each grid (i.e., your click efficiency).</b>
+    At the end of each period, you will receive feedback on this efficiency measure.
+    Although minimizing your clicks is part of the objective, your compensation is still based on the
+    overall objective of prioritizing grids of greater concern and marking a sufficient number of bombs within them.
+
+
+</p> <br>
 ***One key distinction between this experiment and the traditional version of
 Minesweeper is that incorrectly left-clicking a bomb in this game results in a
 financial penalty whereas an incorrect left-click ends the game in the traditional version of Minesweeper.
@@ -43,7 +52,9 @@ financial penalty whereas an incorrect left-click ends the game in the tradition
 <p><b><u>Comprehension Questions</u></b><br>
     Please answer the questions correctly below to continue with the instructions.
 </p> <br>
-{% formfield player.q1 %}
+
+   {% formfield player.q1 %}
 {% formfield player.q2 %}
+{% formfield player.q3 %}
      {% next_button %}
 {% endblock %}

@@ -1,8 +1,9 @@
 {% extends "global/Page.html" %}
 {% load otree static %}
 
+
 {% block title %}
-   Payoffs and Planning
+   Payoffs, Planning, and Note-Taking
 {% endblock %}
 {% block content %}
 <p></p><br> <u>Payoffs</u><br>
@@ -24,20 +25,36 @@ $0.08 penalty was assigned to those <i>bombs</i>, your compensation at that poin
 Participant earnings= $20 -  ((Financial Penalty  ($0.05, 0.08, 0.11) X
 (# of <i>Bombs</i> not <i>Marked</i> - 20 percent of the total <i>bombs</i> on that <i>grid</i> ) ) - ($0.01 X # of Clicks to Reveal Squares).<br>
 </p><br> <br>
-<p><u>Planning</u>
+<p><u>Note-Taking and Planning</u>
 <br>
 For this task, the max penalty you can receive for all the <i>grids</i> is $16.58.
 This means you are guaranteed $3.42 ($20 endowment- Max Penalty for missing all the <i>bombs</i>) for
-attempting the task and can make around $17 based on your performance.
-Remember, <i>grids</i> may differ in size, number of <i>bombs</i>, and <i>bomb</i> locations.
-This may cause you to use more clicks than you expected or accidentally open <i>bombs.</i>
-Please keep that in mind while you play. Halfway through the first task or after the first period,
-you will have some time to think about adjusting your approach for achieving the main objective.
+attempting the task and can make around $17 based on your performance. To help you perform better, there will be a
+    space provided on each <i>grid</i> to take notes and an exercise that has you reflect on those notes.
+    <b>These notes will be reviewed by your supervisor.</b>  </p> <br>
+
+<p> <u>Note-Taking</u> <br>
+    Remember, <i>grids</i> may differ in size, number of <i>bombs</i>, <i>and bomb</i> locations.
+    These obstacles may cause you to use more clicks than you expected or accidentally open <i>bombs.</i>
+    There will be a space provided on every <i>grid</i> where you should take notes on the obstacles to and your
+    approach for achieving the main objective. Please make sure the notes are clear for your supervisor.
+    These notes will be important because your supervisor will review them to make sure you thought
+    sufficiently about achieving the objective.
+</p> <br>
+
+<p><u> Planning Session</u><br>
+    Halfway through the first task or after period 1, the notes you took during that period will
+    be made available to you and your supervisor. You will then be asked to refer to the written notes
+    and document reasons to your supervisor for why you deviated from their recommended budget.
+    Finally, you will be asked to write down at least one way you can adjust your gameplay for the next
+    set of <i>grids</i> to better achieve the objective. These responses should be brief (1-2 sentences).
+
 </p> <br> <br>
+
 <p><b><u>Comprehension Question</u></b><br>
     Please answer the question correctly below to continue with the instructions.
 </p> <br>
-
-{% formfield player.q3 %}
-        {% next_button %}
+    {% formfield player.q4 %}
+{% formfield player.q5 %}
+    {% next_button %}
 {% endblock %}

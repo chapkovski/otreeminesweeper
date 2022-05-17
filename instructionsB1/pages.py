@@ -5,32 +5,32 @@ from .models import Constants
 
 class Instructions(Page):
     def is_displayed(self):
-        return self.session.config.get('control', False)
+        return self.session.config.get('condition2', False)
 
 
 class Instructions2(Page):
     def is_displayed(self):
-        return self.session.config.get('control', False)
+        return self.session.config.get('condition2', False)
 
 
 class Instructions3(Page):
     def is_displayed(self):
-        return self.session.config.get('control', False )
+        return self.session.config.get('condition2', False )
 
     form_model = 'player'
-    form_fields = ['q1', 'q2']
+    form_fields = ['q1', 'q2', 'q3']
 
 class Instructions4(Page):
     def is_displayed(self):
-        return self.session.config.get('control', False )
+        return self.session.config.get('condition2', False )
     form_model = 'player'
-    form_fields = ['q3']
+    form_fields = ['q4']
 
 class Instructions5(Page):
     def is_displayed(self):
-        return self.session.config.get('control', False )
+        return self.session.config.get('condition2', False )
     form_model = 'player'
-    form_fields = ['q4']
+    form_fields = ['q5']
 
 
 page_sequence = [Instructions, Instructions2, Instructions3, Instructions4, Instructions5]

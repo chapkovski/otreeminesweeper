@@ -1,6 +1,7 @@
 {% extends "global/Page.html" %}
 {% load otree static %}
 
+
 {% block title %}
   Compensation and Budget
 {% endblock %}
@@ -26,9 +27,11 @@ Less penalties for not marking up to 80 percent of the bombs.
 <br> <br>
 <p><u>Budget</u><br>
 This task will last for 2 periods, and you will have the opportunity to <i>mark bombs</i> on 12 grids (6 per period).
-    To help you decide how to use clicks efficiently, your supervisor will provide you a recommended budget for each period.
-    Their budget will arrange the <i>grids</i> by overall financial penalties (i.e., it will recommend that you play the
-    high penalty <i>grids</i> first).
+    To help you decide how to use clicks efficiently, you will be asked to develop a budget for each period.
+    The budget will consist of selecting the order in which you plan to work on the <i>grids</i> and determining
+    the number of clicks you will allocate in total for all 6 <i>grids.</i> Once you have developed your own budget,
+    your supervisor will provide you their recommended budget. Their budget will arrange the <i>grids</i>
+    by overall financial penalties (i.e., it will recommend that you play the high penalty <i>grids</i> first).
     It will then recommend how many clicks you should allocate in total to the 6 <i>grids</i> for each period based on the
     average number of left clicks it took past participants to achieve the main objective on <i>grids</i> of similar size and
     total number of <i>bombs.</i> Since the recommendations are based on past averages, feel free to deviate from the
@@ -36,6 +39,15 @@ This task will last for 2 periods, and you will have the opportunity to <i>mark 
     similar size and <i>bomb</i> numbers, the location of the <i>bombs</i> will differ). Compensation is still based on the overall
     objective of prioritizing <i>grids</i> of greater concern and efficiently <i>marking</i> a sufficient number of <i>bombs</i> within them.   </p>
 <br>
+<p><u>Performance Measure</u> <br>
+     <b>Your supervisor will measure the degree to which you stay under the recommended budgeted number of
+         clicks for each grid (i.e., your click efficiency).</b>
+    At the end of each period, you will receive feedback on this efficiency measure.
+    Although minimizing your clicks is part of the objective, your compensation is still based on the
+    overall objective of prioritizing grids of greater concern and marking a sufficient number of bombs within them.
+
+
+</p> <br>
 ***One key distinction between this experiment and the traditional version of
 Minesweeper is that incorrectly left-clicking a bomb in this game results in a
 financial penalty whereas an incorrect left-click ends the game in the traditional version of Minesweeper.
@@ -45,5 +57,7 @@ financial penalty whereas an incorrect left-click ends the game in the tradition
 </p> <br>
 {% formfield player.q1 %}
 {% formfield player.q2 %}
-     {% next_button %}
+{% formfield player.q3 %}
+    {% next_button %}
 {% endblock %}
+
