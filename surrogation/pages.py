@@ -2,6 +2,8 @@ from otree.api import Currency as c, currency_range
 from ._builtin import Page, WaitPage
 from .models import Constants
 
+class Intro(Page):
+    pass
 
 class Surrogation1(Page):
     form_model = 'player'
@@ -41,5 +43,5 @@ class Surrogation9(Page):
 
 
 
-page_sequence = [ Surrogation2, Surrogation4, Surrogation6, Surrogation9,
+page_sequence = [ Intro, Surrogation2, Surrogation4, Surrogation6, Surrogation9,
                  Surrogation7, Surrogation8, Surrogation3, Surrogation1, Surrogation5]
