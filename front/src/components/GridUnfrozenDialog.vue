@@ -64,6 +64,7 @@ export default {
       this.OPEN_BUDGET_DIALOG();
       this.dialog = false;
     },
+
   },
 };
 </script>

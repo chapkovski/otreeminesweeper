@@ -42,6 +42,24 @@ SESSION_CONFIGS = [
     ),
 
 ]
+ROOMS = [
+    dict(
+        name='1',
+        display_name='1'),
+    dict(
+        name='2',
+        display_name='2'
+    ),
+    dict(
+        name='3',
+        display_name='3'
+    ),
+    dict(
+        name='4',
+        display_name='4'
+    ),
+    ]
+
 
 # if you set a property in SESSION_CONFIG_DEFAULTS, it will be inherited by all configs
 # in SESSION_CONFIGS, except those that explicitly override it.

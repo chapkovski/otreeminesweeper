@@ -25,7 +25,7 @@
   penalty: 0.11
   recommended_clicks: 95
   freezable: true
-  freeze_when: 5
+  freeze_when: 85
   
 - rows: 18
   columns: 20
