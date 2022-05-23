@@ -5,7 +5,7 @@ from .models import Constants
 
 class MyPage(Page):
     form_model = 'player'
-    form_fields = ['name','gender', 'age', 'education', 'work','minesweeper', 'minesweeper2','videogames',
+    form_fields = ['name', 'gender', 'age', 'education', 'work','minesweeper', 'minesweeper2','videogames',
                    'budgetpressure','deviation','measure','notes', 'notesb', 'notesc' ]
 
 

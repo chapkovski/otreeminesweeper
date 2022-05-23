@@ -32,8 +32,8 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    name = models.StringField(min=2, max=60, label='Please type your First and Last name to receive extra credit for participating')
-    gender = models.StringField(widget=widgets.RadioSelect, choices=['Female', 'Male'], blank=True)
+    name = models.StringField(blank=False,
+                              label='Please type your First and Last name to receive extra credit for participating')
     age = models.IntegerField(min=15, max=99)
     education = models.IntegerField(min=0, max=20,
                                     label='How many years of full-time education have you completed after high school? ')
@@ -42,9 +42,15 @@ class Player(BasePlayer):
                                                                            [2, "No"]
                                                                            ],
                                       label='Before Today, have you played minesweeper before?')
+    gender = models.IntegerField(widget=widgets.RadioSelect, choices=[[1, "Female"],
+                                                                      [2, "Male"],
+                                                                      [3, "Prefer not to Say"]
+                                                                           ],
+                                      label='Please select your gender')
+
     minesweeper2 = models.IntegerField(min=0, max=10000,
                                        label='How many total (approximate) hours of minesweeper have you played before (put a 0 if never played)?')
-    videogames = models.IntegerField(min=0, max=10000,
+    videogames = models.IntegerField(min=0, max=1000,
                                      label='Other than minesweeper, how many hours of video games do you play in a week?')
 
     budgetpressure = models.IntegerField(widget=widgets.RadioSelectHorizontal, choices=[[1, "1 No Pressure"],
@@ -77,7 +83,7 @@ class Player(BasePlayer):
                                                                      ],
                                 label='During Task 1, did you take any written notes about the obstacles you faced?')
 
-    notesb = models.IntegerField(min=0, max=10000,
+    notesb = models.IntegerField(min=0, max=100,
                                  label='How many separate notes (approximate) did you take throughout the experiment (put a 0 if none)?')
     notesc = models.IntegerField(widget=widgets.RadioSelect, choices=[[1, "Yes"],
                                                                       [2, "No"]
