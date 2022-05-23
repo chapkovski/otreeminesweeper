@@ -6,24 +6,31 @@ from .models import Constants
 class Instructions(Page):
     def is_displayed(self):
         return self.session.config.get('condition4', False)
+
 class Instructions2(Page):
     def is_displayed(self):
         return self.session.config.get('condition4', False)
+
+    form_model = 'player'
+    form_fields = ['a1']
+
 class Instructions3(Page):
     def is_displayed(self):
         return self.session.config.get('condition4', False)
     form_model = 'player'
     form_fields = ['q1', 'q2', 'q3']
+
 class Instructions4(Page):
     def is_displayed(self):
         return self.session.config.get('condition4', False)
     form_model = 'player'
-    form_fields = ['q4', 'q5' ]
+    form_fields = ['q4', 'q5', 'a2' ]
+
 class Instructions5(Page):
     def is_displayed(self):
         return self.session.config.get('condition4', False)
     form_model = 'player'
-    form_fields = [ 'q6' ]
+    form_fields = [ 'q6', 'a3' ]
 
 
 page_sequence = [Instructions, Instructions2, Instructions3,Instructions4, Instructions5]
