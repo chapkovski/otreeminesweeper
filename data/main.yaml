@@ -23,12 +23,12 @@
   columns: 20
   bombs: 60
   penalty: 0.11
-  recommended_clicks: 95
+  recommended_clicks: 90
   freezable: true
-  freeze_when: 85
+  freeze_when: 80
   
 - rows: 18
   columns: 20
   bombs: 60
   penalty: 0.11
-  recommended_clicks: 95
+  recommended_clicks: 90

@@ -3,14 +3,14 @@
   columns: 10
   bombs: 10
   penalty: 0.05
-  recommended_clicks: 95
+  recommended_clicks: 90
 - rows: 15
   columns: 15
   bombs: 30
   penalty: 0.08
-  recommended_clicks: 95
+  recommended_clicks: 90
 - rows: 18
   columns: 18
   bombs: 50
   penalty: 0.11
-  recommended_clicks: 95
+  recommended_clicks: 90

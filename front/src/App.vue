@@ -134,12 +134,12 @@ import Budget from "./Budget.vue";
 import UnfrozenDialog from "./components/GridUnfrozenDialog.vue";
 export default {
   name: "app",
-  components: { Budget, UnfrozenDialog },
+  components: { Budget,  UnfrozenDialog },
   data() {
     return {round_number:window.round_number};
   },
   computed: {
-    ...mapState(["totclicks", "grids", "budget_counter",'return_to_frozen']),
+    ...mapState([ "totclicks", "grids",'return_to_frozen', "budget_counter"]),
     ...mapGetters(["allGridsDone", "limitExhausted", "total_penalty"]),
   },
   methods: {},
