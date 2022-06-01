@@ -62,18 +62,26 @@ class Player(BasePlayer):
                                        'Using the rules of the game, how would your financial compensation be affected '
                                        'by using one click to find one more bomb if there were 10 total bombs on the '
                                        'grid and you had already found 8?')
+        q7 = models.IntegerField(choices=[[1, '$0.50 increase'],
+                                          [2, '$0.25 increase'],
+                                          [3, '$0.40 increase'],
+                                          [4, '$0.15 increase']], blank=False,
+                                 label='According to the instructions, how much would your earnings '
+                                       'change if you successfully marked 10 bombs and used 25 clicks on a grid? (use the grid information above)'
+
+                                 )
         q5 = models.IntegerField(
             choices=[[1, 'Count the number of clicks you have used or bombs you have found for the period'],
                      [2, 'Document and show your supervisor that you thought '
                          'sufficiently about achieving the main objective'],
                      [3, 'Privately collect your thoughts for the task']
                      ], blank=False,
-            label='5. During task 1, the purpose of taking notes is to:')
+            label='6. During task 1, the purpose of taking notes is to:')
         q6 = models.IntegerField(choices=[[1, '15th Bomb'],
                                           [2, '12th Bomb'],
                                           [3, '10th Bomb'],
                                           [4, '8th Bomb']], blank=False,
-                                 label='6.  Pretend that the max penalty you could receive for not marking a single bomb on a '
+                                 label='7.  Pretend that the max penalty you could receive for not marking a single bomb on a '
                                        'grid is $0.80. If each bomb was assigned a $0.08 penalty on that grid, after marking '
                                        'which bomb would you stop receiving penalties for unmarked bombs:')
         a1 = models.IntegerField(choices=[[1, 'Yes'],
@@ -91,35 +99,41 @@ class Player(BasePlayer):
                                           [4, 'There is no button on that screen']],
                                  label='Where is the location of the budget recommendation button on the grid selection screen?')
 
-def q1_error_message(player, q1):
-    if q1 != 3:
-        return 'Wrong answer, Please try again'
-def q2_error_message(player, q2):
-    if q2 != 1:
-        return 'Wrong answer, Please try again'
-def q3_error_message(player, q3):
-    if q3 != 1:
-        return 'Wrong answer, Please try again'
-def q4_error_message(player, q4):
-    if q4 != 1:
-        return 'The correct answer is cost of $0.01 since you already found 80 percent of the bombs, please resubmit the ' \
-               'correct answer'
-def q5_error_message(player, q5):
-    if q5 != 2:
-        return 'Wrong Answer, Please Try Again'
-def q6_error_message(player, q6):
-    if q6 != 3:
-        return 'The correct answer is the 10th bomb, $0.80/.08 = 10 bombs, please resubmit the correct answer'
+        def q1_error_message(player, q1):
+            if q1 != 3:
+                return 'Wrong answer, Please try again'
+        def q2_error_message(player, q2):
+            if q2 != 1:
+                return 'Wrong answer, Please try again'
+        def q3_error_message(player, q3):
+            if q3 != 1:
+                return 'Wrong answer, Please try again'
+        def q4_error_message(player, q4):
+            if q4 != 1:
+                return 'The correct answer is cost of $0.01 since you already found 80 percent of the bombs, please resubmit the ' \
+                         'correct answer'
+        def q7_error_message(player, q7):
+            if q7 != 4:
+                return 'Since the max penalty you can receive on the grid is $.40 and the penalty per bomb is $.05, this means ' \
+                        'you stop receiving penalties after marking the 8th bomb (.40/.05) and do not increase your earnings ' \
+                        'by marking the additional bombs. '\
+                        'Your earnings will increase by $.40- $0.01 X 25 Clicks= $.15, please resubmit the correct answer.'
+        def q5_error_message(player, q5):
+            if q5 != 2:
+                return 'Wrong Answer, Please Try Again'
+        def q6_error_message(player, q6):
+            if q6 != 3:
+                return 'The correct answer is the 10th bomb, $0.80/.08 = 10 bombs, please resubmit the correct answer'
 
-def a1_error_message(player, a1):
-    if a1 != 3:
-        return 'You have a failed an attention check, please pay closer attention and answer it correctly.'
+        def a1_error_message(player, a1):
+            if a1 != 3:
+                return 'You have a failed an attention check, please pay closer attention and answer it correctly.'
 
-def a2_error_message(player, a2):
-    if a2 != 1:
-        return 'You have a failed an attention check, please pay closer attention and answer it correctly.'
+        def a2_error_message(player, a2):
+            if a2 != 1:
+                return 'You have a failed an attention check, please pay closer attention and answer it correctly.'
 
-def a3_error_message(player, a3):
-    if a3 != 2:
-        return 'You have a failed an attention check, please pay closer attention and answer it correctly.'
+        def a3_error_message(player, a3):
+            if a3 != 2:
+                return 'You have a failed an attention check, please pay closer attention and answer it correctly.'
 

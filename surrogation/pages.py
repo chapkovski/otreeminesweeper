@@ -41,7 +41,15 @@ class Surrogation9(Page):
     form_model = 'player'
     form_fields = ['s9']
 
+class Results(Page):
+    def vars_for_template(self):
+        self.player.correct = self.player.num_correct()
+        self.player.round_payoff = self.player.correct*0.1
+        self.participant.payoff += self.player.round_payoff
+        print(self.participant.payoff)
+        correct = self.player.correct
+        return{'correct': correct}
 
 
 page_sequence = [ Intro, Surrogation2, Surrogation4, Surrogation6, Surrogation9,
-                 Surrogation7, Surrogation8, Surrogation3, Surrogation1, Surrogation5]
+                 Surrogation7, Surrogation8, Surrogation3, Surrogation1, Surrogation5, Results]

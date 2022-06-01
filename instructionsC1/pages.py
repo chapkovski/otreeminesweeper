@@ -24,7 +24,7 @@ class Instructions4(Page):
     def is_displayed(self):
         return self.session.config.get('condition3', False)
     form_model = 'player'
-    form_fields = ['q4', 'q5', 'a2' ]
+    form_fields = ['q4', 'q5','q7', 'a2' ]
 
 class Instructions5(Page):
     def is_displayed(self):

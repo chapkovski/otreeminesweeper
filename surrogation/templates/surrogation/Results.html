@@ -1,0 +1,18 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+Results
+{% endblock %}
+
+
+{% block content %}
+The number of questions you answered correctly is {{correct}}. <br>
+You get ${{player.round_payoff}} for Task 2.<br>
+
+<br>
+
+{% next_button %}
+
+
+{% endblock %}

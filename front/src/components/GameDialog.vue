@@ -55,6 +55,10 @@
               <v-card-text>
                 <v-list dense>
                   <v-list-item-group>
+                  <v-list-item
+                      >Bomb Penalty:
+                      <div class="ml-auto">{{ mygrid.penalty }}</div>
+                    </v-list-item>
                     <v-list-item>
                       Number of clicks used in this grid:
                       <div class="ml-auto">{{ mygrid.used_clicks }}</div>
@@ -67,6 +71,7 @@
                       >Flag counter:
                       <div class="ml-auto">{{ mygrid.flags }}</div>
                     </v-list-item>
+
                     <v-list-item
                       >Bombs accidently opened:
                       <div class="ml-auto">{{ mygrid.bombs_blown }}</div>
@@ -77,10 +82,7 @@
                         >Left clicks used:
                         <div class="ml-auto">{{ mygrid.used_clicks }}</div>
                       </v-list-item>
-                      <v-list-item
-                        >Right clicks used:
-                        <div class="ml-auto">{{ mygrid.right_clicks }}</div>
-                      </v-list-item>
+
                       <v-list-item
                         >Cost of each left click:
                         <div class="ml-auto">
