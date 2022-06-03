@@ -1,22 +1,18 @@
 <template>
-  <v-dialog
-    v-model="dialog"
-    scrollable
-    transition="dialog-bottom-transition"
-  >
-    <template v-slot:activator="{ on, attrs }">
-      <v-btn
-        text
-        color="yellow"
-        v-bind="attrs"
-        v-on="on"
-        class="m-1"
-        outlined
-        @click="increaseCounter"
-      >
-        Budget recommendations
-      </v-btn>
-    </template>
+    <v-dialog v-model="dialog" scrollable transition="dialog-bottom-transition">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            text
+            color="yellow"
+            v-bind="attrs"
+            v-on="on"
+            class="m-1"
+            outlined
+            @click="increaseCounter"
+          >
+            Budget recommendations
+          </v-btn>
+</template>
 
     <v-card>
       <v-toolbar dark color="primary">
@@ -40,27 +36,27 @@
 <script>
 import { mapState, mapMutations } from "vuex";
 export default {
-  name: "Budget",
-  data() {
-    return {
-      budgetText: document.getElementById("budget").innerHTML,
-      dialog:false,
-    };
-  },
-  watch:{
-    budget_dialog(v){
-      this.dialog=v;
-    }
-  },
-  computed: {
-    ...mapState(["budget_dialog"]),
-  },
-  methods: {
-    ...mapMutations(["OPEN_BUDGET_DIALOG", "CLOSE_BUDGET_DIALOG"]),
-    increaseCounter() {
-      this.OPEN_BUDGET_DIALOG();
-      this.$store.commit("INCREASE_BUDGET_COUNTER");
+    name: "Budget",
+    data() {
+        return {
+            budgetText: document.getElementById("budget").innerHTML,
+            dialog: false,
+        };
     },
-  },
+    watch: {
+        budget_dialog(v) {
+            this.dialog = v;
+        }
+    },
+    computed: {
+        ...mapState(["budget_dialog"]),
+    },
+    methods: {
+        ...mapMutations(["OPEN_BUDGET_DIALOG", "CLOSE_BUDGET_DIALOG"]),
+        increaseCounter() {
+            this.OPEN_BUDGET_DIALOG();
+            this.$store.commit("INCREASE_BUDGET_COUNTER");
+        },
+    },
 };
 </script>

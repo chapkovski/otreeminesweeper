@@ -42,7 +42,7 @@ class Trade(Page):
     live_method = 'register_event'
 
     def vars_for_template(self):
-        c = self.session.config
+        c = self.participant.vars
         notes = c.get('notes', False)
         if not notes:
             notes_message = ''
@@ -92,7 +92,7 @@ class Results(Page):
 
 class Performance(Page):
     def is_displayed(self):
-        return self.session.config.get('performance', False)
+        return self.participant.vars.get('performance', False)
 
 
 class Notes(Page):
@@ -100,7 +100,7 @@ class Notes(Page):
     form_fields = ['deviation', 'explanation', 'adjustment']
 
     def vars_for_template(self):
-        public = self.session.config.get('public')
+        public = self.participant.vars.get('public')
         labels = dict(
             deviation='Did you deviate from the recommended budget and which grids?',
             adjustment='Please write down at least one way you can adjust your gameplay to better achieve the objective for  the next set of grids.',
@@ -114,7 +114,7 @@ class Notes(Page):
         return dict(**labels, public=public)
 
     def is_displayed(self):
-        return self.session.config.get('notes', False) and self.round_number == 1
+        return self.participant.vars.get('notes', False) and self.round_number == 1
 
 
 page_sequence = [

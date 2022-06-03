@@ -22,7 +22,7 @@
       <v-card-actions>
         <v-btn @click="openGrid()">Yes</v-btn>
         <v-btn @click="dialog = false">No</v-btn>
-        <v-btn @click="openBudget()">View budget</v-btn>
+        <v-btn @click="openBudget()" v-if="false">View budget</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -52,10 +52,10 @@ export default {
       "CLOSE_BUDGET_DIALOG",
       "OPEN_FROZEN_GRID",
       "SET_OPEN_GRID",
-      'SET_RETURN_TO_FROZEN'
+      "SET_RETURN_TO_FROZEN",
     ]),
     openGrid() {
-      this.SET_RETURN_TO_FROZEN()
+      this.SET_RETURN_TO_FROZEN();
       this.SET_OPEN_GRID(window.freezable_grid_id);
 
       this.dialog = false;
@@ -64,8 +64,6 @@ export default {
       this.OPEN_BUDGET_DIALOG();
       this.dialog = false;
     },
-
-
   },
 };
 </script>

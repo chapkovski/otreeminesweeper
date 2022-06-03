@@ -1,7 +1,10 @@
 from os import environ
+app_sequence=[ 'intro',
+               # 'instructionsA1','instructionsB1', 'instructionsC1','instructionsD1',
+               'backend', 'surrogation','bret',  'demographics']
 
 exp_defaults = dict(num_demo_participants=1,
-                    app_sequence=[ 'instructionsA1','instructionsB1', 'instructionsC1','instructionsD1', 'backend', 'surrogation','bret',  'demographics'],
+                    app_sequence=app_sequence,
                     time_for_practice=10,
                     max_clicks=10,
                     endowment=20,
@@ -12,34 +15,40 @@ SESSION_CONFIGS = [
         name='exp1_1',
         display_name="experiment 1; condition 1",
         **exp_defaults,
-        control = True
+        condition='condition1'
     ),
     dict(
         name='exp1_2',
         display_name="exp 1-2; AND exp 2-1:  performance measure condition",
         **exp_defaults,
         performance=True,
-        condition2=True
+        condition='condition2'
     ),
 
     dict(
         name='exp2_2',
-        display_name="exp 2; cond 2;  Note Taking (Private)",
+        display_name="exp 2; cond 3;  Note Taking (Private)",
         **exp_defaults,
         performance=True,
         notes=True,
-        condition3= True,
-        public=False,
+        condition= 'condition3'
+
     ),
     dict(
         name='exp2_3',
-        display_name="exp 2; cond 3;  Note Taking (Public)",
+        display_name="exp 2; cond 4;  Note Taking (Public)",
         **exp_defaults,
-        performance=True,
-        notes=True,
-        condition4= True,
-        public=True,
+        condition= 'condition4',
+
     ),
+    {
+        'name':'random',
+        'display_name':"Random treatment",
+        **exp_defaults,
+        'random':True,
+        'app_sequence': app_sequence
+
+    },
 
 ]
 ROOMS = [
